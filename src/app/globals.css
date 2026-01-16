@@ -1,26 +1,263 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #f8fafc;
+  --foreground: #1e293b;
+  --primary: #f97316;
+  --primary-dark: #ea580c;
+  --accent: #0ea5e9;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+}
+
+/* === ARTICLE CONTENT STYLING === */
+.article-content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #334155;
+}
+
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4 {
+  color: #1e293b;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.article-content h1 {
+  font-size: 2rem;
+  border-bottom: 3px solid #f97316;
+  padding-bottom: 0.5rem;
+}
+
+.article-content h2 {
+  font-size: 1.5rem;
+  color: #f97316;
+}
+
+.article-content h3 {
+  font-size: 1.25rem;
+  color: #0369a1;
+}
+
+.article-content p {
+  margin-bottom: 1.25rem;
+}
+
+.article-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Product images in centered divs - full width without extra padding */
+.article-content div[style*="text-align: center"] img,
+.article-content div[style*="text-align:center"] img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  box-shadow: none;
+  border-radius: 8px;
+}
+
+/* Tables */
+.article-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.article-content thead {
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  color: white;
+}
+
+.article-content th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.article-content td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.article-content tbody tr:hover {
+  background: #fef3c7;
+}
+
+.article-content tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Links & Buttons */
+.article-content a {
+  color: #f97316;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.article-content a:hover {
+  color: #ea580c;
+  text-decoration: underline;
+}
+
+.article-content a[href*="shopee"],
+.article-content a[href*="tokopedia"],
+.article-content a.cta-button {
+  display: inline-block;
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  color: white !important;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none !important;
+  margin: 0.5rem 0;
+  box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+  transition: all 0.3s;
+}
+
+.article-content a[href*="shopee"]:hover,
+.article-content a[href*="tokopedia"]:hover,
+.article-content a.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+}
+
+/* Lists */
+.article-content ul,
+.article-content ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.article-content li {
+  margin-bottom: 0.5rem;
+}
+
+.article-content ul li::marker {
+  color: #f97316;
+}
+
+/* Blockquotes / Top Pick Box */
+.article-content blockquote {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border-left: 4px solid #f97316;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 12px 12px 0;
+  font-style: normal;
+}
+
+.article-content blockquote strong {
+  color: #ea580c;
+}
+
+/* Product Cards in Article */
+.article-content .product-card,
+.article-content [style*="border"] {
+  background: white;
+  border-radius: 16px !important;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: none !important;
+}
+
+/* Strong / Bold */
+.article-content strong {
+  color: #1e293b;
+  font-weight: 700;
+}
+
+/* Horizontal Rules */
+.article-content hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #f97316, transparent);
+  margin: 2rem 0;
+}
+
+/* Pros & Cons styling */
+.article-content .pros,
+.article-content [style*="green"] {
+  color: #16a34a !important;
+}
+
+.article-content .cons,
+.article-content [style*="red"] {
+  color: #dc2626 !important;
+}
+
+/* Rating stars */
+.article-content [style*="gold"],
+.article-content [style*="yellow"] {
+  color: #f59e0b !important;
+}
+
+/* === HOMEPAGE CARD STYLING === */
+.article-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.article-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(249, 115, 22, 0.15);
+}
+
+.article-card-image {
+  height: 200px;
+  background: linear-gradient(135deg, #fed7aa, #fef3c7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.article-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.article-card:hover .article-card-image img {
+  transform: scale(1.05);
+}
+
+/* === GRADIENT TEXT === */
+.gradient-text {
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* === HERO SECTION === */
+.hero-gradient {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 50%, #dc2626 100%);
 }

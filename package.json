@@ -9,6 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.19",
+    "firebase": "^12.8.0",
+    "marked": "^17.0.1",
     "next": "16.1.2",
     "react": "19.2.3",
     "react-dom": "19.2.3"
