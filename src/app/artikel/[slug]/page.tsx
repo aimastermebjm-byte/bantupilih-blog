@@ -284,10 +284,25 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <StickyCTA />
 
             {/* Footer */}
-            <footer className="bg-gray-900 text-white py-8">
-                <div className="container mx-auto px-4 text-center">
-                    <p className="text-gray-400">© 2026 BantuPilih. All rights reserved.</p>
-                    <p className="text-gray-500 text-sm mt-2">Rekomendasi produk terbaik berdasarkan riset independen.</p>
+            <footer className="bg-gray-900 text-white py-12">
+                <div className="container mx-auto px-4">
+                    <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+                        <div className="text-center md:text-left">
+                            <p className="font-bold text-lg mb-1">BantuPilih</p>
+                            <p className="text-gray-400 text-sm">Rekomendasi produk terbaik.</p>
+                        </div>
+
+                        <div className="flex flex-wrap gap-6 justify-center text-sm text-gray-400">
+                            <Link href="/about" className="hover:text-white transition-colors">Tentang Kami</Link>
+                            <Link href="/privacy-policy" className="hover:text-white transition-colors">Provasi</Link>
+                            <Link href="/disclaimer" className="hover:text-white transition-colors">Disclaimer</Link>
+                            <Link href="/contact" className="hover:text-white transition-colors">Kontak</Link>
+                        </div>
+
+                        <div className="text-gray-500 text-sm">
+                            © 2026 BantuPilih
+                        </div>
+                    </div>
                 </div>
             </footer>
         </main>

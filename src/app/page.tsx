@@ -172,10 +172,18 @@ export default async function HomePage() {
       <footer className="bg-gray-900 text-white py-12">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div>
+            <div className="text-center md:text-left">
               <h3 className="text-2xl font-bold gradient-text mb-2">BantuPilih</h3>
               <p className="text-gray-400 text-sm">Rekomendasi produk terbaik berdasarkan riset independen.</p>
             </div>
+
+            <div className="flex flex-wrap gap-6 justify-center text-sm text-gray-400">
+              <Link href="/about" className="hover:text-white transition-colors">Tentang Kami</Link>
+              <Link href="/privacy-policy" className="hover:text-white transition-colors">Kebijakan Privasi</Link>
+              <Link href="/disclaimer" className="hover:text-white transition-colors">Disclaimer</Link>
+              <Link href="/contact" className="hover:text-white transition-colors">Kontak</Link>
+            </div>
+
             <div className="text-gray-500 text-sm">
               © 2026 BantuPilih. All rights reserved.
             </div>
