@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { marked } from 'marked';
+import { cache } from 'react';
+import StickyCTA from '@/app/components/StickyCTA';
 
 // ISR: Revalidate every 60 seconds
 export const revalidate = 60;
@@ -20,6 +22,55 @@ interface Article {
     status: string;
 }
 
+// Cached data fetch: Dedupes requests between generateMetadata and ArticlePage
+const getArticleBySlug = cache(async (slug: string): Promise<Article | null> => {
+    try {
+        // 1. Try to find by 'slug' field
+        const articlesRef = collection(db, 'articles');
+        const q = query(
+            articlesRef,
+            where('slug', '==', slug),
+            where('status', '==', 'published')
+        );
+
+        const snapshot = await getDocs(q);
+
+        if (!snapshot.empty) {
+            const docData = snapshot.docs[0];
+            const data = docData.data();
+            return {
+                id: docData.id,
+                ...data,
+                // SAFETY: Fallback for missing fields to prevent crashes
+                content: data.content || '',
+                bannerUrl: data.bannerUrl || '',
+                createdAt: data.createdAt?.toDate() || new Date(),
+            } as Article;
+        }
+
+        // 2. If not found by slug, try by document ID (legacy URLs)
+        const docRef = doc(db, 'articles', slug);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists() && docSnap.data().status === 'published') {
+            const data = docSnap.data();
+            return {
+                id: docSnap.id,
+                ...data,
+                // SAFETY: Fallback for missing fields
+                content: data.content || '',
+                bannerUrl: data.bannerUrl || '',
+                createdAt: data.createdAt?.toDate() || new Date(),
+            } as Article;
+        }
+
+        return null;
+    } catch (error) {
+        console.error('[Blog] Error fetching article:', error);
+        return null;
+    }
+});
+
 // Generate metadata for SEO
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
@@ -29,22 +80,22 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         return { title: 'Artikel Tidak Ditemukan | BantuPilih' };
     }
 
-    // Generate description: Find first paragraph that is NOT json/code
-    // Generate description: Find first paragraph that is NOT json/code
-    const cleanContent = article.content
-        .replace(/<script\b[^>]*>([\s\S]*?)<\/script>/gm, '') // Remove script blocks completely
-        .replace(/<style\b[^>]*>([\s\S]*?)<\/style>/gm, '') // Remove style blocks completely
-        .replace(/```[\s\S]*?```/g, '') // remove code blocks
-        .replace(/<[^>]*>/g, '') // remove remaining html tags
-        .split('\n') // split by lines
+    // Generate description safe handling
+    const safeContent = article.content || '';
+    const cleanContent = safeContent
+        .replace(/<script\b[^>]*>([\s\S]*?)<\/script>/gm, '')
+        .replace(/<style\b[^>]*>([\s\S]*?)<\/style>/gm, '')
+        .replace(/```[\s\S]*?```/g, '')
+        .replace(/<[^>]*>/g, '')
+        .split('\n')
         .map(line => line.trim())
         .filter(line =>
-            line.length > 50 && // Must be substantive
-            !line.startsWith('{') && // Not JSON
-            !line.startsWith('[') && // Not Array
-            !line.startsWith('"') && // Not quoted string
-            !line.includes('{"') &&  // Not inline JSON
-            !line.startsWith('#') // Not heading
+            line.length > 50 &&
+            !line.startsWith('{') &&
+            !line.startsWith('[') &&
+            !line.startsWith('"') &&
+            !line.includes('{"') &&
+            !line.startsWith('#')
         )
         .join(' ');
 
@@ -79,47 +130,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
 }
 
-// Fetch article by slug
-async function getArticleBySlug(slug: string): Promise<Article | null> {
-    try {
-        // Try to find by slug field first
-        const articlesRef = collection(db, 'articles');
-        const q = query(
-            articlesRef,
-            where('slug', '==', slug),
-            where('status', '==', 'published')
-        );
-
-        const snapshot = await getDocs(q);
-
-        if (!snapshot.empty) {
-            const docData = snapshot.docs[0];
-            return {
-                id: docData.id,
-                ...docData.data(),
-                createdAt: docData.data().createdAt?.toDate() || new Date(),
-            } as Article;
-        }
-
-        // If not found by slug, try by document ID
-        const docRef = doc(db, 'articles', slug);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists() && docSnap.data().status === 'published') {
-            return {
-                id: docSnap.id,
-                ...docSnap.data(),
-                createdAt: docSnap.data().createdAt?.toDate() || new Date(),
-            } as Article;
-        }
-
-        return null;
-    } catch (error) {
-        console.error('Error fetching article:', error);
-        return null;
-    }
-}
-
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
     const article = await getArticleBySlug(slug);
@@ -128,8 +138,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         notFound();
     }
 
-    // Parse Markdown to HTML
-    const htmlContent = await marked.parse(article.content);
+    // Parse Markdown to HTML (HANDLE EMPTY CONTENT SAFELY)
+    const htmlContent = await marked.parse(article.content || '');
 
     // Article JSON-LD schema for SEO
     const articleSchema = {
@@ -147,7 +157,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             name: 'BantuPilih',
             url: 'https://blog-bice-three-80.vercel.app',
         },
-        description: article.content.replace(/<[^>]*>/g, '').replace(/[#*`]/g, '').substring(0, 160),
+        description: (article.content || '').replace(/<[^>]*>/g, '').replace(/[#*`]/g, '').substring(0, 160),
         mainEntityOfPage: {
             '@type': 'WebPage',
             '@id': `https://blog-bice-three-80.vercel.app/artikel/${slug}`,
@@ -270,24 +280,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             </section>
 
             {/* Sticky Bottom CTA for Mobile (Only if article has offers) */}
-            <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] md:hidden flex items-center justify-between z-50">
-                <div className="text-sm font-medium text-gray-600">
-                    Tertarik produk ini?
-                </div>
-                <a
-                    href="#"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        const firstLink = document.querySelector('.article-content a[href*="shopee"], .article-content a[href*="tokopedia"]');
-                        if (firstLink) {
-                            firstLink.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        }
-                    }}
-                    className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-2 rounded-full font-bold text-sm shadow-lg"
-                >
-                    Lihat Harga Termurah
-                </a>
-            </div>
+            {/* Sticky Bottom CTA for Mobile (Client Component) */}
+            <StickyCTA />
 
             {/* Footer */}
             <footer className="bg-gray-900 text-white py-8">
