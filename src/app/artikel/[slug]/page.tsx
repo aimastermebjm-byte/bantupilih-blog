@@ -5,9 +5,8 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { marked } from 'marked';
 
-// Disable caching
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+// ISR: Revalidate every 60 seconds
+export const revalidate = 60;
 
 // Types
 interface Article {
@@ -132,8 +131,45 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     // Parse Markdown to HTML
     const htmlContent = await marked.parse(article.content);
 
+    // Article JSON-LD schema for SEO
+    const articleSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: article.title,
+        datePublished: article.createdAt.toISOString(),
+        author: {
+            '@type': 'Organization',
+            name: 'BantuPilih',
+            url: 'https://blog-bice-three-80.vercel.app',
+        },
+        publisher: {
+            '@type': 'Organization',
+            name: 'BantuPilih',
+            url: 'https://blog-bice-three-80.vercel.app',
+        },
+        description: article.content.replace(/<[^>]*>/g, '').replace(/[#*`]/g, '').substring(0, 160),
+        mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': `https://blog-bice-three-80.vercel.app/artikel/${slug}`,
+        },
+        ...(article.bannerUrl && {
+            image: {
+                '@type': 'ImageObject',
+                url: article.bannerUrl,
+                width: 1200,
+                height: 630,
+            },
+        }),
+    };
+
     return (
         <main className="min-h-screen bg-gray-50">
+            {/* Article JSON-LD */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+            />
+
             {/* Header */}
             <header className="hero-gradient text-white py-4">
                 <div className="container mx-auto px-4 flex items-center justify-between">

@@ -2,9 +2,9 @@ import { db } from '@/lib/firebase';
 import { collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
 import Link from 'next/link';
 
-// Disable caching for this page
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+// ISR: Revalidate every 60 seconds (good balance of freshness vs performance)
+export const revalidate = 60;
+
 
 // Types
 interface Article {

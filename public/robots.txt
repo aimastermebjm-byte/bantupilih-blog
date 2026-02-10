@@ -1,0 +1,10 @@
+# BantuPilih Blog - Robots.txt
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://blog-bice-three-80.vercel.app/sitemap.xml
+
+# Block Next.js internal paths
+Disallow: /_next/
+Disallow: /api/

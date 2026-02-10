@@ -1,24 +1,33 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: {
     template: '%s | BantuPilih',
     default: 'BantuPilih - Rekomendasi Produk Terbaik',
   },
-  description: 'Temukan rekomendasi produk terbaik berdasarkan riset independen. Review jujur, perbandingan harga, dan spesifikasi lengkap.',
+  description: 'Temukan rekomendasi produk terbaik berdasarkan riset independen. Review jujur, perbandingan harga, dan spesifikasi lengkap untuk membantu Anda memilih produk yang tepat.',
   metadataBase: new URL('https://blog-bice-three-80.vercel.app'),
+  keywords: ['rekomendasi produk', 'review produk', 'perbandingan harga', 'produk terbaik', 'BantuPilih'],
+  authors: [{ name: 'BantuPilih' }],
+  creator: 'BantuPilih',
+  publisher: 'BantuPilih',
+  openGraph: {
+    type: 'website',
+    locale: 'id_ID',
+    siteName: 'BantuPilih',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -27,10 +36,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="id">
+      <body className="antialiased">
         {children}
       </body>
     </html>
