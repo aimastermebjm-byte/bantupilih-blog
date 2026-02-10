@@ -238,15 +238,56 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <section className="bg-orange-50 py-12 mt-8">
                 <div className="container mx-auto px-4 text-center">
                     <h2 className="text-2xl font-bold text-gray-800 mb-2">Suka artikel ini?</h2>
-                    <p className="text-gray-600 mb-6">Temukan rekomendasi produk terbaik lainnya di BantuPilih</p>
+                    <p className="text-gray-600 mb-6">Bagikan ke teman atau keluarga Anda!</p>
+
+                    {/* Social Share Buttons */}
+                    <div className="flex justify-center gap-4 mb-8">
+                        <a
+                            href={`https://wa.me/?text=Rekomendasi terbaik: ${article.title} %0A%0A ${`https://blog-bice-three-80.vercel.app/artikel/${slug}`}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="bg-green-500 text-white px-6 py-2 rounded-full font-medium hover:bg-green-600 transition-colors flex items-center gap-2"
+                        >
+                            <span>WhatsApp</span>
+                        </a>
+                        <a
+                            href={`https://www.facebook.com/sharer/sharer.php?u=${`https://blog-bice-three-80.vercel.app/artikel/${slug}`}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="bg-blue-600 text-white px-6 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors flex items-center gap-2"
+                        >
+                            <span>Facebook</span>
+                        </a>
+                    </div>
+
                     <Link
                         href="/"
-                        className="inline-block bg-gradient-to-r from-orange-500 to-orange-600 text-white px-8 py-3 rounded-full font-medium hover:shadow-lg transition-all"
+                        className="inline-block border-2 border-orange-500 text-orange-600 px-8 py-2.5 rounded-full font-medium hover:bg-orange-50 transition-all"
                     >
-                        Jelajahi Semua Artikel →
+                        Jelajahi Artikel Lain →
                     </Link>
                 </div>
             </section>
+
+            {/* Sticky Bottom CTA for Mobile (Only if article has offers) */}
+            <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] md:hidden flex items-center justify-between z-50">
+                <div className="text-sm font-medium text-gray-600">
+                    Tertarik produk ini?
+                </div>
+                <a
+                    href="#"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        const firstLink = document.querySelector('.article-content a[href*="shopee"], .article-content a[href*="tokopedia"]');
+                        if (firstLink) {
+                            firstLink.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    }}
+                    className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-2 rounded-full font-bold text-sm shadow-lg"
+                >
+                    Lihat Harga Termurah
+                </a>
+            </div>
 
             {/* Footer */}
             <footer className="bg-gray-900 text-white py-8">
