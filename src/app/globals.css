@@ -54,23 +54,41 @@ body {
   margin-bottom: 1.25rem;
 }
 
-.article-content img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-  margin: 1.5rem auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-/* Product images in centered divs - full width without extra padding */
+/* Product images in centered divs */
 .article-content div[style*="text-align: center"] img,
 .article-content div[style*="text-align:center"] img {
   display: block;
   margin: 0 auto;
+  box-shadow: none !important;
+  border-radius: 12px;
+
+  /* Mobile: Full width */
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* Desktop: Limit size for esthetics */
+@media (min-width: 768px) {
+
+  .article-content div[style*="text-align: center"] img,
+  .article-content div[style*="text-align:center"] img {
+    width: auto !important;
+    max-width: 250px !important;
+    /* Reduced to 250px as requested */
+  }
+}
+
+/* General images (Banner fallback) */
+.article-content img {
+  display: block;
   max-width: 100%;
+  width: 100%;
+  /* Force Banner & other images to full width */
+  height: auto;
+  margin: 1.5rem auto;
+  border-radius: 12px;
   box-shadow: none;
-  border-radius: 8px;
 }
 
 /* Tables */
