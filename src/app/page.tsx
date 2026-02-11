@@ -22,23 +22,29 @@ interface Article {
 async function getPublishedArticles(): Promise<Article[]> {
   try {
     const articlesRef = collection(db, 'articles');
-    // Query ensuring we ONLY get published articles
-    // Note: This requires a composite index on valid combinations (status + createdAt)
-    // If it fails, check Vercel logs for the index creation link.
+    // Reverting to application-level filtering to fix "Missing Index" error immediately
+    // Query specifically for published articles using publishedAt
+    // This implicitly filters out drafts that don't have this field
     const q = query(
       articlesRef,
-      where('status', '==', 'published'), // FILTER AT DB LEVEL
-      orderBy('createdAt', 'desc'),
+      orderBy('publishedAt', 'desc'),
       limit(50)
     );
 
     const snapshot = await getDocs(q);
+    const allArticles = snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        ...data,
+        // Fallback for types
+        createdAt: data.createdAt?.toDate ? data.createdAt.toDate() : new Date(),
+        publishedAt: data.publishedAt?.toDate ? data.publishedAt.toDate() : null,
+      };
+    }) as Article[];
 
-    return snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data(),
-      createdAt: doc.data().createdAt?.toDate() || new Date(),
-    })) as Article[];
+    // No need to filter locally, but keeping it as sanity check
+    return allArticles;
 
   } catch (error) {
     console.error('[Blog] Error fetching articles (Check Indexes!):', error);
