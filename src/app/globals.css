@@ -61,17 +61,23 @@ img {
 
 
 /* ============================================
-   GRADIENT TEXT & HERO
+   TYPOGRAPHY UTILITIES
    ============================================ */
-.gradient-text {
-  background: linear-gradient(135deg, #f97316, #ea580c);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.text-balance {
+  text-wrap: balance;
 }
 
-.hero-gradient {
-  background: linear-gradient(135deg, #f97316 0%, #ea580c 50%, #dc2626 100%);
+/* Clean, high-readability heading styles */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #111827;
+  /* Gray-900 */
+  letter-spacing: -0.025em;
+  /* Tight tracking for modern feel */
 }
 
 /* ============================================
@@ -416,44 +422,12 @@ img {
   }
 }
 
-/* === Custom Animations & Utilities === */
-@keyframes fade-in-up {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-in-up {
-  animation: fade-in-up 0.6s ease-out forwards;
-}
-
-@keyframes pulse-soft {
-
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: .95;
-    transform: scale(0.98);
-  }
-}
-
-.animate-pulse-soft {
-  animation: pulse-soft 2s infinite;
-}
-
+/* === Custom Utilities === */
 .text-balance {
   text-wrap: balance;
 }
+
+
 
 /* Premium Card Hover Effect */
 .article-card:hover .article-card-image img {
