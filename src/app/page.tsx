@@ -31,7 +31,6 @@ async function getPublishedArticles(): Promise<Article[]> {
       limit(50)
     );
 
-    const snapshot = await getDocs(q);
     const allArticles = snapshot.docs.map(doc => {
       const data = doc.data();
       return {
@@ -40,8 +39,8 @@ async function getPublishedArticles(): Promise<Article[]> {
         // Fallback for types
         createdAt: data.createdAt?.toDate ? data.createdAt.toDate() : new Date(),
         publishedAt: data.publishedAt?.toDate ? data.publishedAt.toDate() : null,
-      };
-    }) as Article[];
+      } as unknown as Article;
+    });
 
     // No need to filter locally, but keeping it as sanity check
     return allArticles;
