@@ -31,6 +31,7 @@ async function getPublishedArticles(): Promise<Article[]> {
       limit(50)
     );
 
+    const snapshot = await getDocs(q);
     const allArticles = snapshot.docs.map(doc => {
       const data = doc.data();
       return {
