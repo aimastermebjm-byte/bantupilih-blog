@@ -53,6 +53,7 @@ async function getPublishedArticles(): Promise<Article[]> {
 }
 
 import CategoryNav from './components/CategoryNav';
+import Footer from './components/Footer';
 
 // ... (previous imports and helpers) ...
 
@@ -204,19 +205,9 @@ export default async function HomePage() {
         </div>
       </div>
 
-      {/* Simplified Footer */}
-      <footer className="bg-black text-white py-12 mt-12 border-t-4 border-orange-600">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl font-serif font-bold mb-6 text-white">BantuPilih.</h2>
-          <div className="flex justify-center gap-6 text-sm text-gray-300 mb-8 font-medium">
-            <Link href="/about" className="hover:text-white transition-colors">Tentang Kami</Link>
-            <Link href="/contact" className="hover:text-white transition-colors">Kontak</Link>
-            <Link href="/privacy-policy" className="hover:text-white transition-colors">Privasi</Link>
-            <Link href="/disclaimer" className="hover:text-white transition-colors">Disclaimer</Link>
-          </div>
-          <p className="text-xs text-gray-500">© 2026 BantuPilih. Independently reviewed.</p>
-        </div>
-      </footer>
+      {/* Shared Footer */}
+      <Footer />
     </main>
   );
 }
+```
