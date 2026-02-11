@@ -434,6 +434,12 @@ h6 {
 
 
 /* Premium Card Hover Effect */
-.article-card:hover .article-card-image img {
-  transform: scale(1.05);
+/* Premium Grid Pattern for Hero */
+.bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
 }

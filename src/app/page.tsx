@@ -59,7 +59,7 @@ export default async function HomePage() {
     <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Header */}
       {/* Hero Header - Clean/Pro Style */}
-      <header className="relative bg-white text-gray-900 pb-16 pt-24 border-b border-gray-100">
+      <header className="relative bg-white text-gray-900 pb-16 pt-24 border-b border-gray-100 bg-grid-pattern">
         <div className="container mx-auto px-4 relative z-10 text-center md:text-left">
           <div className="max-w-4xl mx-auto md:mx-0">
             <span className="inline-block py-1.5 px-4 rounded-full bg-orange-100 text-orange-700 text-sm font-bold tracking-wide uppercase mb-6">
@@ -116,12 +116,12 @@ export default async function HomePage() {
               >
                 <article className="article-card h-full">
                   {/* Banner Image with Smart Backdrop Blur */}
-                  <div className="article-card-image relative overflow-hidden group-hover:shadow-lg transition-all">
-                    {/* 1. Backdrop Blur Layer (Fills gaps) */}
+                  <div className="article-card-image relative overflow-hidden group-hover:shadow-lg transition-all bg-gray-100">
+                    {/* 1. Backdrop Blur Layer (Fills gaps) - FIXED QUOTES */}
                     {article.bannerUrl && (
                       <div
-                        className="absolute inset-0 bg-cover bg-center blur-xl opacity-60 scale-125 transition-transform duration-700 group-hover:scale-150"
-                        style={{ backgroundImage: `url(${article.bannerUrl})` }}
+                        className="absolute inset-0 bg-cover bg-center blur-2xl opacity-50 scale-125 transition-transform duration-700 group-hover:scale-150"
+                        style={{ backgroundImage: `url("${article.bannerUrl}")` }}
                       />
                     )}
 
@@ -131,7 +131,7 @@ export default async function HomePage() {
                         src={article.bannerUrl}
                         alt={article.title}
                         loading="lazy"
-                        className="relative z-10 w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                        className="relative z-10 w-full h-full object-contain transition-transform duration-500 group-hover:scale-105 drop-shadow-sm"
                       />
                     ) : (
                       <div className="flex flex-col items-center justify-center text-orange-400 bg-orange-50 w-full h-full relative z-10">
