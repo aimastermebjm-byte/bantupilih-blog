@@ -43,9 +43,9 @@ async function getPublishedArticles(): Promise<Article[]> {
       } as unknown as Article;
     });
 
-    // No need to filter locally, but keeping it as sanity check
-    return allArticles;
-
+    // Strict filtering: Only show articles with status 'published'
+    // This handles cases where drafts still have a publishedAt date
+    return allArticles.filter(a => a.status === 'published');
   } catch (error) {
     console.error('[Blog] Error fetching articles (Check Indexes!):', error);
     return [];
