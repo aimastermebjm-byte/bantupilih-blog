@@ -1,5 +1,5 @@
 import { db } from '@/lib/firebase';
-import { collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
+import { collection, getDocs, query, orderBy, limit, where } from 'firebase/firestore';
 import Link from 'next/link';
 
 // ISR: Revalidate every 60 seconds (good balance of freshness vs performance)
@@ -22,22 +22,26 @@ interface Article {
 async function getPublishedArticles(): Promise<Article[]> {
   try {
     const articlesRef = collection(db, 'articles');
+    // Query ensuring we ONLY get published articles
+    // Note: This requires a composite index on valid combinations (status + createdAt)
+    // If it fails, check Vercel logs for the index creation link.
     const q = query(
       articlesRef,
+      where('status', '==', 'published'), // FILTER AT DB LEVEL
       orderBy('createdAt', 'desc'),
       limit(50)
     );
 
     const snapshot = await getDocs(q);
-    const allArticles = snapshot.docs.map(doc => ({
+
+    return snapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data(),
       createdAt: doc.data().createdAt?.toDate() || new Date(),
     })) as Article[];
 
-    return allArticles.filter(a => a.status === 'published');
   } catch (error) {
-    console.error('[Blog] Error fetching articles:', error);
+    console.error('[Blog] Error fetching articles (Check Indexes!):', error);
     return [];
   }
 }
