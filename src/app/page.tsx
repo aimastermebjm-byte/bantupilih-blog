@@ -52,169 +52,171 @@ async function getPublishedArticles(): Promise<Article[]> {
   }
 }
 
+import CategoryNav from './components/CategoryNav';
+
+// ... (previous imports and helpers) ...
+
 export default async function HomePage() {
   const articles = await getPublishedArticles();
 
-  return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      {/* Hero Header */}
-      {/* Hero Header - Clean/Pro Style */}
-      <header className="relative bg-white text-gray-900 pb-16 pt-24 border-b border-gray-100 bg-grid-pattern">
-        <div className="container mx-auto px-4 relative z-10 text-center md:text-left">
-          <div className="max-w-4xl mx-auto md:mx-0">
-            <span className="inline-block py-1.5 px-4 rounded-full bg-orange-100 text-orange-700 text-sm font-bold tracking-wide uppercase mb-6">
-              Solusi Belanja Cerdas
-            </span>
-            <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight tracking-tight text-gray-900">
-              Pilih Produk Terbaik <br />
-              <span className="text-orange-600">
-                Tanpa Ragu.
-              </span>
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-500 mb-8 max-w-2xl leading-relaxed text-balance">
-              Riset independen, review jujur, dan perbandingan harga termurah untuk keputusan belanja yang tepat.
-            </p>
+  // Separate Featured Article (First one) & Recent Articles
+  const featuredArticle = articles[0];
+  const recentArticles = articles.slice(1);
 
-            <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-              <a href="#artikels" className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all text-lg">
-                Mulai Membaca
-              </a>
-              <a href="/about" className="bg-white hover:bg-gray-50 text-gray-900 border-2 border-gray-200 font-bold py-3.5 px-8 rounded-lg transition-all text-lg">
-                Tentang Kami
-              </a>
-            </div>
-          </div>
+  return (
+    <main className="min-h-screen bg-white">
+      {/* 1. Brand Header (Logo Only - Minimalist) */}
+      <header className="bg-white py-6 border-b border-gray-100">
+        <div className="container mx-auto px-4 text-center">
+          <Link href="/" className="inline-block">
+            <h1 className="text-4xl md:text-5xl font-black tracking-tight text-gray-900 font-serif">
+              <span className="text-gray-900">Bantu</span><span className="text-orange-600">Pilih</span>
+              <span className="text-orange-600 text-5xl">.</span>
+            </h1>
+            <p className="text-gray-500 text-sm mt-1 font-sans font-medium tracking-wider uppercase">Panduan Belanja Independen & Terpercaya</p>
+          </Link>
         </div>
       </header>
 
-      {/* Content */}
-      <div id="artikels" className="container mx-auto px-4 py-8">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
-            <span className="text-gray-900 border-b-4 border-orange-500 pb-1">Artikel Terbaru</span>
-          </h2>
-          <span className="text-gray-500 text-sm">
-            {articles.length} artikel
-          </span>
-        </div>
+      {/* 2. Category Navigation (Sticky) */}
+      <CategoryNav />
 
-        {articles.length === 0 ? (
-          <div className="bg-white rounded-2xl shadow-lg p-12 text-center">
-            <div className="text-6xl mb-4 text-gray-300">—</div>
-            <p className="text-gray-500 text-lg">Belum ada artikel yang dipublish.</p>
-            <p className="text-gray-400 text-sm mt-2">
-              Publish artikel dari dashboard untuk menampilkannya di sini.
-            </p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {articles.map((article, index) => (
-              <Link
-                key={article.id}
-                href={`/artikel/${article.slug || article.id}`}
-                className="group"
-              >
-                <article className="article-card h-full">
-                  {/* Banner Image with Smart Backdrop Blur */}
-                  <div className="article-card-image relative overflow-hidden group-hover:shadow-lg transition-all bg-gray-100">
-                    {/* 1. Backdrop Blur Layer (Fills gaps) - FIXED QUOTES */}
-                    {article.bannerUrl && (
-                      <div
-                        className="absolute inset-0 bg-cover bg-center blur-2xl opacity-50 scale-125 transition-transform duration-700 group-hover:scale-150"
-                        style={{ backgroundImage: `url("${article.bannerUrl}")` }}
-                      />
-                    )}
-
-                    {/* 2. Main Image (Fully Visible) */}
-                    {article.bannerUrl ? (
+      {/* 3. Hero Featured Article (Magazine Style) */}
+      {featuredArticle && (
+        <section className="bg-gray-50 py-12 border-b border-gray-200">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col md:flex-row gap-8 items-center">
+              {/* Image (Left) */}
+              <div className="w-full md:w-2/3">
+                <div className="relative aspect-[16/9] rounded-xl overflow-hidden shadow-sm group">
+                  {featuredArticle.bannerUrl ? (
+                    <Link href={`/artikel/${featuredArticle.slug || featuredArticle.id}`}>
                       <img
-                        src={article.bannerUrl}
-                        alt={article.title}
-                        loading="lazy"
-                        className="relative z-10 w-full h-full object-contain transition-transform duration-500 group-hover:scale-105 drop-shadow-sm"
+                        src={featuredArticle.bannerUrl}
+                        alt={featuredArticle.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
+                    </Link>
+                  ) : (
+                    <div className="w-full h-full bg-gray-200 flex items-center justify-center">Featured Image</div>
+                  )}
+                </div>
+              </div>
+
+              {/* Content (Right) */}
+              <div className="w-full md:w-1/3 text-center md:text-left">
+                <Link href={`/artikel/${featuredArticle.slug || featuredArticle.id}`} className="group">
+                  <span className="inline-block mb-4 text-orange-600 font-bold tracking-wider text-xs uppercase border-b-2 border-orange-200 pb-1">
+                    {featuredArticle.category}
+                  </span>
+                  <h2 className="text-3xl md:text-4xl font-bold text-gray-900 font-serif leading-tight mb-4 group-hover:text-orange-700 transition-colors">
+                    {featuredArticle.title}
+                  </h2>
+                  <p className="text-gray-600 mb-6 font-sans text-lg leading-relaxed line-clamp-3">
+                    {featuredArticle.excerpt || "Baca review lengkap kami untuk menemukan rekomendasi produk terbaik tahun ini..."}
+                  </p>
+                  <span className="inline-flex items-center font-bold text-orange-600 border border-orange-200 bg-orange-50 px-6 py-3 rounded-lg hover:bg-orange-600 hover:text-white transition-all">
+                    Baca Review Lengkap →
+                  </span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* 4. Main Content Area (Sidebar Layout) */}
+      <div className="container mx-auto px-4 py-12">
+        <div className="flex flex-col lg:flex-row gap-12">
+
+          {/* Left Column: Latest Reviews */}
+          <div className="lg:w-3/4">
+            <div className="flex items-center justify-between mb-8 border-b-2 border-black pb-2">
+              <h3 className="text-2xl font-bold font-serif">Review Terbaru</h3>
+              <Link href="/kategori/semua" className="text-orange-600 text-sm font-bold hover:underline">Lihat Semua →</Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
+              {recentArticles.map((article) => (
+                <Link key={article.id} href={`/artikel/${article.slug || article.id}`} className="group flex flex-col h-full">
+                  {/* Image */}
+                  <div className="relative aspect-[3/2] mb-4 overflow-hidden rounded-lg bg-gray-100">
+                    {article.bannerUrl ? (
+                      <img src={article.bannerUrl} alt={article.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                     ) : (
-                      <div className="flex flex-col items-center justify-center text-orange-400 bg-orange-50 w-full h-full relative z-10">
-                        <span className="text-4xl mb-2">🖼️</span>
-                        <span className="text-sm opacity-60 font-medium">No Image</span>
-                      </div>
+                      <div className="w-full h-full flex items-center justify-center text-gray-400">No Image</div>
                     )}
                   </div>
 
-                  {/* Content */}
-                  <div className="p-5">
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className="bg-gradient-to-r from-orange-500 to-orange-600 text-white text-xs px-3 py-1 rounded-full font-medium">
-                        {article.category || 'Artikel'}
-                      </span>
-                      {index === 0 && (
-                        <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full">
-                          Terbaru
-                        </span>
-                      )}
-                    </div>
-
-                    <h3 className="font-bold text-gray-800 text-lg group-hover:text-orange-600 transition-colors line-clamp-2 mb-3">
+                  {/* Text */}
+                  <div className="flex flex-col flex-grow">
+                    <span className="text-xs font-bold text-orange-600 uppercase tracking-wide mb-2">{article.category}</span>
+                    <h4 className="text-xl font-bold text-gray-900 font-serif leading-snug mb-3 group-hover:text-orange-700">
                       {article.title}
-                    </h3>
-
-                    <div className="flex items-center justify-between text-sm">
-                      <p className="text-gray-400">
-                        {article.createdAt.toLocaleDateString('id-ID', {
-                          day: 'numeric',
-                          month: 'short',
-                          year: 'numeric'
-                        })}
-                      </p>
-                      <span className="text-orange-500 font-medium group-hover:translate-x-1 transition-transform inline-block">
-                        Baca →
-                      </span>
+                    </h4>
+                    <p className="text-gray-500 text-sm leading-relaxed line-clamp-2 mb-4">
+                      {article.excerpt || "Review komprehensif, independen, dan terpercaya..."}
+                    </p>
+                    <div className="mt-auto text-xs text-gray-400 font-medium">
+                      {article.createdAt.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
                     </div>
                   </div>
-                </article>
-              </Link>
-            ))}
+                </Link>
+              ))}
+            </div>
           </div>
-        )}
+
+          {/* Right Column: Sidebar (Sticky) */}
+          <aside className="lg:w-1/4 space-y-8">
+
+            {/* About Widget */}
+            <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
+              <h4 className="text-lg font-bold font-serif mb-4">Tentang Kami</h4>
+              <p className="text-sm text-gray-600 mb-4 leading-relaxed">
+                BantuPilih adalah situs review independen. Kami melakukan riset mendalam agar Anda bisa belanja tanpa ragu.
+              </p>
+              <Link href="/about" className="text-orange-600 text-sm font-bold hover:underline">Pelajari Misi Kami →</Link>
+            </div>
+
+            {/* Trending / Popular (Hardcoded for now / Placeholder) */}
+            <div>
+              <h4 className="text-lg font-bold font-serif mb-4 border-b border-gray-200 pb-2">Populer Minggu Ini</h4>
+              <ul className="space-y-4">
+                {[1, 2, 3].map((i) => (
+                  <li key={i} className="flex gap-4 group">
+                    <span className="text-3xl font-black text-gray-200 font-serif group-hover:text-orange-200">{i}</span>
+                    <div className="h-4 bg-gray-100 w-full rounded animate-pulse"></div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Newsletter / CTA */}
+            <div className="bg-orange-600 text-white p-6 rounded-xl text-center">
+              <h4 className="text-lg font-bold font-serif mb-2">Jangan Salah Pilih!</h4>
+              <p className="text-sm text-orange-100 mb-4">Dapatkan rekomendasi produk terbaik langsung ke email Anda.</p>
+              <button className="w-full bg-white text-orange-600 font-bold py-2 rounded shadow-sm hover:bg-gray-50 transition-colors">
+                Langganan Gratis
+              </button>
+            </div>
+
+          </aside>
+        </div>
       </div>
 
-      {/* CTA Section */}
-      <section className="bg-gradient-to-r from-orange-500 to-orange-600 text-white py-16 mt-16">
+      {/* Simplified Footer */}
+      <footer className="bg-black text-white py-12 mt-12 border-t-4 border-orange-600">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">Butuh Rekomendasi Produk?</h2>
-          <p className="text-orange-100 mb-6 max-w-2xl mx-auto">
-            Kami review produk secara independen untuk membantu Anda menemukan produk terbaik sesuai budget.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <span className="bg-white/20 px-4 py-2 rounded-full text-sm">Review Jujur</span>
-            <span className="bg-white/20 px-4 py-2 rounded-full text-sm">Data Akurat</span>
-            <span className="bg-white/20 px-4 py-2 rounded-full text-sm">Update Terbaru</span>
+          <h2 className="text-2xl font-serif font-bold mb-6">BantuPilih.</h2>
+          <div className="flex justify-center gap-6 text-sm text-gray-400 mb-8 font-medium">
+            <Link href="/about" className="hover:text-white">Tentang Kami</Link>
+            <Link href="/contact" className="hover:text-white">Kontak</Link>
+            <Link href="/privacy-policy" className="hover:text-white">Privasi</Link>
+            <Link href="/disclaimer" className="hover:text-white">Disclaimer</Link>
           </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="text-center md:text-left">
-              <h3 className="text-2xl font-bold gradient-text mb-2">BantuPilih</h3>
-              <p className="text-gray-400 text-sm">Rekomendasi produk terbaik berdasarkan riset independen.</p>
-            </div>
-
-            <div className="flex flex-wrap gap-6 justify-center text-sm text-gray-400">
-              <Link href="/about" className="hover:text-white transition-colors">Tentang Kami</Link>
-              <Link href="/privacy-policy" className="hover:text-white transition-colors">Kebijakan Privasi</Link>
-              <Link href="/disclaimer" className="hover:text-white transition-colors">Disclaimer</Link>
-              <Link href="/contact" className="hover:text-white transition-colors">Kontak</Link>
-            </div>
-
-            <div className="text-gray-500 text-sm">
-              © 2026 BantuPilih. All rights reserved.
-            </div>
-          </div>
+          <p className="text-xs text-gray-600">© 2026 BantuPilih. Independently reviewed.</p>
         </div>
       </footer>
-    </main >
+    </main>
   );
 }
