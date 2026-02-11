@@ -214,7 +214,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                             {article.category || 'Artikel'}
                         </span>
                         <span className="text-gray-500 text-sm">
-                            📅 {article.createdAt.toLocaleDateString('id-ID', {
+                            {article.createdAt.toLocaleDateString('id-ID', {
                                 day: 'numeric',
                                 month: 'long',
                                 year: 'numeric'

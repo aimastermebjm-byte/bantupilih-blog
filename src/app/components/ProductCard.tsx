@@ -39,7 +39,7 @@ export default function ProductCard({
                                 className="object-contain w-full h-full hover:scale-105 transition-transform duration-300"
                             />
                         ) : (
-                            <div className="text-6xl">📦</div>
+                            <div className="text-gray-300 text-sm">No Image</div>
                         )}
                     </div>
                 </div>
@@ -52,19 +52,15 @@ export default function ProductCard({
 
                     {/* Rating */}
                     <div className="flex items-center gap-2 mb-4">
-                        <div className="flex text-yellow-400 text-lg">
-                            {[...Array(5)].map((_, i) => (
-                                <span key={i}>{i < Math.floor(rating) ? '★' : '☆'}</span>
-                            ))}
-                        </div>
-                        <span className="text-gray-500 text-sm font-medium">({rating}/5.0)</span>
+                        <span className="bg-yellow-100 text-yellow-800 text-sm font-bold px-2.5 py-0.5 rounded">{rating}/5</span>
+                        <span className="text-gray-400 text-sm">Rating</span>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 text-sm">
                         {/* Pros */}
                         {pros.length > 0 && (
                             <div className="bg-green-50 p-4 rounded-xl border border-green-100">
-                                <span className="font-bold text-green-700 block mb-2">✅ Kelebihan</span>
+                                <span className="font-bold text-green-700 block mb-2">Kelebihan</span>
                                 <ul className="space-y-1">
                                     {pros.map((pro, idx) => (
                                         <li key={idx} className="text-green-800 flex items-start gap-2">
@@ -78,7 +74,7 @@ export default function ProductCard({
                         {/* Cons */}
                         {cons.length > 0 && (
                             <div className="bg-red-50 p-4 rounded-xl border border-red-100">
-                                <span className="font-bold text-red-700 block mb-2">⚠️ Kekurangan</span>
+                                <span className="font-bold text-red-700 block mb-2">Kekurangan</span>
                                 <ul className="space-y-1">
                                     {cons.map((con, idx) => (
                                         <li key={idx} className="text-red-800 flex items-start gap-2">

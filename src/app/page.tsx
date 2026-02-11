@@ -59,7 +59,7 @@ export default async function HomePage() {
         <div className="container mx-auto px-4 relative z-10 text-center md:text-left">
           <div className="max-w-4xl mx-auto md:mx-0">
             <span className="inline-block py-1 px-3 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-sm font-medium mb-6 animate-fade-in-up">
-              ✨ Solusi Belanja Cerdas
+              Solusi Belanja Cerdas
             </span>
             <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight tracking-tight animate-fade-in-up [animation-delay:200ms]">
               Pilih Produk Terbaik <br />
@@ -92,7 +92,7 @@ export default async function HomePage() {
       </header>
 
       {/* Content */}
-      <div className="container mx-auto px-4 py-8">
+      <div id="artikels" className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
             <span className="gradient-text">Artikel Terbaru</span>
@@ -104,7 +104,7 @@ export default async function HomePage() {
 
         {articles.length === 0 ? (
           <div className="bg-white rounded-2xl shadow-lg p-12 text-center">
-            <div className="text-6xl mb-4">📰</div>
+            <div className="text-6xl mb-4 text-gray-300">—</div>
             <p className="text-gray-500 text-lg">Belum ada artikel yang dipublish.</p>
             <p className="text-gray-400 text-sm mt-2">
               Publish artikel dari dashboard untuk menampilkannya di sini.
@@ -129,7 +129,7 @@ export default async function HomePage() {
                       />
                     ) : (
                       <div className="flex flex-col items-center justify-center text-orange-400">
-                        <span className="text-5xl mb-2">📰</span>
+                        <span className="text-gray-300 text-sm">Artikel Review</span>
                         <span className="text-sm opacity-60">Artikel Review</span>
                       </div>
                     )}
@@ -143,7 +143,7 @@ export default async function HomePage() {
                       </span>
                       {index === 0 && (
                         <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full">
-                          🔥 Terbaru
+                          Terbaru
                         </span>
                       )}
                     </div>
@@ -180,9 +180,9 @@ export default async function HomePage() {
             Kami review produk secara independen untuk membantu Anda menemukan produk terbaik sesuai budget.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <span className="bg-white/20 px-4 py-2 rounded-full text-sm">✓ Review Jujur</span>
-            <span className="bg-white/20 px-4 py-2 rounded-full text-sm">✓ Data Akurat</span>
-            <span className="bg-white/20 px-4 py-2 rounded-full text-sm">✓ Update Terbaru</span>
+            <span className="bg-white/20 px-4 py-2 rounded-full text-sm">Review Jujur</span>
+            <span className="bg-white/20 px-4 py-2 rounded-full text-sm">Data Akurat</span>
+            <span className="bg-white/20 px-4 py-2 rounded-full text-sm">Update Terbaru</span>
           </div>
         </div>
       </section>
