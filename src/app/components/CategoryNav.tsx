@@ -1,16 +1,60 @@
-import Link from 'next/link';
+'use client';
 
-const categories = [
-    { name: 'Populer', slug: 'populer' },
-    { name: 'Elektronik', slug: 'elektronik' },
-    { name: 'Rumah Tangga', slug: 'rumah-tangga' },
-    { name: 'Kesehatan', slug: 'kesehatan' },
-    { name: 'Hobi', slug: 'hobi' },
-    { name: 'Travel', slug: 'travel' },
-    { name: 'Otomotif', slug: 'otomotif' },
-];
+import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import { collection, query, orderBy, getDocs } from 'firebase/firestore';
+import { db } from '../../lib/firebase';
 
 export default function CategoryNav() {
+    const [categories, setCategories] = useState<{ name: string; slug: string }[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const q = query(collection(db, 'categories'), orderBy('name', 'asc'));
+                const snapshot = await getDocs(q);
+
+                const loadedCategories = snapshot.docs.map(doc => {
+                    const data = doc.data();
+                    const name = data.name;
+                    // Simple slug generation
+                    const slug = name.toLowerCase().replace(/\s+/g, '-');
+                    return { name, slug };
+                });
+
+                if (loadedCategories.length > 0) {
+                    setCategories(loadedCategories);
+                } else {
+                    // Fallback defaults if empty
+                    setCategories([
+                        { name: 'Elektronik', slug: 'elektronik' },
+                        { name: 'Rumah Tangga', slug: 'rumah-tangga' },
+                        { name: 'Kesehatan', slug: 'kesehatan' },
+                        { name: 'Hobi', slug: 'hobi' },
+                        { name: 'Travel', slug: 'travel' },
+                        { name: 'Otomotif', slug: 'otomotif' },
+                    ]);
+                }
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+                // Fallback on error
+                setCategories([
+                    { name: 'Elektronik', slug: 'elektronik' },
+                    { name: 'Rumah Tangga', slug: 'rumah-tangga' },
+                    { name: 'Kesehatan', slug: 'kesehatan' },
+                    { name: 'Hobi', slug: 'hobi' },
+                    { name: 'Travel', slug: 'travel' },
+                    { name: 'Otomotif', slug: 'otomotif' },
+                ]);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchCategories();
+    }, []);
+
     return (
         <nav className="border-b border-gray-200 bg-white sticky top-0 z-40 shadow-sm overflow-x-auto">
             <div className="container mx-auto px-4">
@@ -24,16 +68,32 @@ export default function CategoryNav() {
                             </svg>
                         </Link>
                     </li>
-                    {categories.map((cat) => (
-                        <li key={cat.slug}>
-                            <Link
-                                href={cat.slug === 'populer' ? '/#populer' : `/kategori/${cat.slug}`}
-                                className="hover:text-orange-600 transition-colors uppercase tracking-wide text-xs md:text-sm font-bold"
-                            >
-                                {cat.name}
-                            </Link>
-                        </li>
-                    ))}
+
+                    {/* Populer Link (Static) */}
+                    <li>
+                        <Link href="/#populer" className="hover:text-orange-600 transition-colors uppercase tracking-wide text-xs md:text-sm font-bold">
+                            Populer
+                        </Link>
+                    </li>
+
+                    {/* Dynamic Categories */}
+                    {loading ? (
+                        // Skeleton / Loading State
+                        [1, 2, 3, 4, 5].map(i => (
+                            <li key={i} className="animate-pulse bg-gray-200 h-4 w-16 rounded"></li>
+                        ))
+                    ) : (
+                        categories.map((cat) => (
+                            <li key={cat.slug}>
+                                <Link
+                                    href={`/kategori/${cat.slug}`}
+                                    className="hover:text-orange-600 transition-colors uppercase tracking-wide text-xs md:text-sm font-bold"
+                                >
+                                    {cat.name}
+                                </Link>
+                            </li>
+                        ))
+                    )}
                 </ul>
             </div>
         </nav>
