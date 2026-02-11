@@ -115,18 +115,28 @@ export default async function HomePage() {
                 className="group"
               >
                 <article className="article-card h-full">
-                  {/* Banner Image */}
-                  <div className="article-card-image">
+                  {/* Banner Image with Smart Backdrop Blur */}
+                  <div className="article-card-image relative overflow-hidden group-hover:shadow-lg transition-all">
+                    {/* 1. Backdrop Blur Layer (Fills gaps) */}
+                    {article.bannerUrl && (
+                      <div
+                        className="absolute inset-0 bg-cover bg-center blur-xl opacity-60 scale-125 transition-transform duration-700 group-hover:scale-150"
+                        style={{ backgroundImage: `url(${article.bannerUrl})` }}
+                      />
+                    )}
+
+                    {/* 2. Main Image (Fully Visible) */}
                     {article.bannerUrl ? (
                       <img
                         src={article.bannerUrl}
                         alt={article.title}
                         loading="lazy"
+                        className="relative z-10 w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
                       />
                     ) : (
-                      <div className="flex flex-col items-center justify-center text-orange-400">
-                        <span className="text-gray-300 text-sm">Artikel Review</span>
-                        <span className="text-sm opacity-60">Artikel Review</span>
+                      <div className="flex flex-col items-center justify-center text-orange-400 bg-orange-50 w-full h-full relative z-10">
+                        <span className="text-4xl mb-2">🖼️</span>
+                        <span className="text-sm opacity-60 font-medium">No Image</span>
                       </div>
                     )}
                   </div>
