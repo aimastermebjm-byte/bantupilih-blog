@@ -3,30 +3,31 @@
 import { useEffect } from 'react';
 
 /**
- * Adds data-label attributes to table cells for mobile card layout.
- * Reads header text from <thead> and applies it as data-label on each <td>.
+ * Wraps article tables in a scroll wrapper for mobile UX hint ("Geser →").
+ * Also hides the hint once user scrolls the table.
  */
 export default function TableResponsive() {
     useEffect(() => {
         const tables = document.querySelectorAll('.article-content table');
 
         tables.forEach(table => {
-            const headers: string[] = [];
-            table.querySelectorAll('thead th').forEach(th => {
-                headers.push(th.textContent?.trim() || '');
-            });
+            // Skip if already wrapped
+            if (table.parentElement?.classList.contains('table-scroll-wrapper')) return;
 
-            if (headers.length === 0) return;
+            // Create wrapper
+            const wrapper = document.createElement('div');
+            wrapper.className = 'table-scroll-wrapper';
+            table.parentNode?.insertBefore(wrapper, table);
+            wrapper.appendChild(table);
 
-            table.querySelectorAll('tbody tr').forEach(row => {
-                row.querySelectorAll('td').forEach((td, idx) => {
-                    if (headers[idx]) {
-                        td.setAttribute('data-label', headers[idx]);
-                    }
-                });
-            });
+            // Hide hint after user scrolls the table
+            table.addEventListener('scroll', function handler() {
+                wrapper.classList.add('scrolled');
+                wrapper.style.setProperty('--hint-opacity', '0');
+                table.removeEventListener('scroll', handler);
+            }, { passive: true });
         });
     }, []);
 
-    return null; // This component only runs the side effect
+    return null;
 }
