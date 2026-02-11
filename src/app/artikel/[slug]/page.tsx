@@ -6,6 +6,7 @@ import { Metadata } from 'next';
 import { marked } from 'marked';
 import { cache } from 'react';
 import StickyCTA from '@/app/components/StickyCTA';
+import VerifiedBy from '@/app/components/VerifiedBy';
 
 // ISR: Revalidate every 60 seconds
 export const revalidate = 60;
@@ -220,6 +221,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                             })}
                         </span>
                     </div>
+
+                    {/* Verification Badge */}
+                    <VerifiedBy />
                 </div>
             </div>
 

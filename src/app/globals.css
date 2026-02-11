@@ -347,8 +347,51 @@ img {
   }
 
   /* Product cards tighter */
-  .article-content .product-card,
   .article-content [style*="border"] {
     padding: 0.75rem;
   }
+}
+
+/* === Custom Animations & Utilities === */
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+@keyframes pulse-soft {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: .95;
+    transform: scale(0.98);
+  }
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2s infinite;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Premium Card Hover Effect */
+.article-card:hover .article-card-image img {
+  transform: scale(1.05);
 }

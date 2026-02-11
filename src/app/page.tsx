@@ -48,18 +48,37 @@ export default async function HomePage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Header */}
-      <header className="hero-gradient text-white">
-        <div className="container mx-auto px-4 py-12">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              BantuPilih
+      <header className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white pb-20 pt-24">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+
+        {/* Glowing Orbs */}
+        <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-orange-500/30 rounded-full blur-3xl animate-pulse-soft"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse-soft delay-1000"></div>
+
+        <div className="container mx-auto px-4 relative z-10 text-center md:text-left">
+          <div className="max-w-4xl mx-auto md:mx-0">
+            <span className="inline-block py-1 px-3 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-sm font-medium mb-6 animate-fade-in-up">
+              ✨ Solusi Belanja Cerdas
+            </span>
+            <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight tracking-tight animate-fade-in-up [animation-delay:200ms]">
+              Pilih Produk Terbaik <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500">
+                Tanpa Ragu.
+              </span>
             </h1>
-            <p className="text-xl text-orange-100 mb-6">
-              Rekomendasi Produk Terbaik untuk Anda
+            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl animate-fade-in-up [animation-delay:400ms] text-balance">
+              Riset independen, review jujur, dan perbandingan harga termurah untuk keputusan belanja yang tepat.
             </p>
-            <p className="text-orange-200 text-sm">
-              Review jujur & independen berdasarkan riset mendalam
-            </p>
+
+            <div className="flex flex-wrap gap-4 justify-center md:justify-start animate-fade-in-up [animation-delay:600ms]">
+              <a href="#artikels" className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-3.5 px-8 rounded-full shadow-lg shadow-orange-500/25 transition-all hover:-translate-y-1">
+                Mulai Membaca
+              </a>
+              <a href="/about" className="bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/10 text-white font-medium py-3.5 px-8 rounded-full transition-all">
+                Tentang Kami
+              </a>
+            </div>
           </div>
         </div>
 
@@ -190,6 +209,6 @@ export default async function HomePage() {
           </div>
         </div>
       </footer>
-    </main>
+    </main >
   );
 }
