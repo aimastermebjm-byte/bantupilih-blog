@@ -7,6 +7,7 @@ import { marked } from 'marked';
 import { cache } from 'react';
 import StickyCTA from '@/app/components/StickyCTA';
 import VerifiedBy from '@/app/components/VerifiedBy';
+import TableResponsive from '@/app/components/TableResponsive';
 
 // ISR: Revalidate every 60 seconds
 export const revalidate = 60;
@@ -235,6 +236,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                         className="article-content"
                         dangerouslySetInnerHTML={{ __html: htmlContent }}
                     />
+                    {/* Inject data-label for mobile table card layout */}
+                    <TableResponsive />
                 </div>
 
                 {/* Share & Actions */}

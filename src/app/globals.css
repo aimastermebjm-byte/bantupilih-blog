@@ -161,19 +161,15 @@ img {
   }
 }
 
-/* === Tables — scrollable on mobile === */
+/* === Tables — Card layout on mobile, normal table on desktop === */
 .article-content table {
   width: 100%;
-  border-collapse: collapse;
   margin: 1rem 0;
   font-size: 0.85rem;
   background: white;
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  display: block;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
 }
 
 .article-content thead {
@@ -201,9 +197,71 @@ img {
   border-bottom: none;
 }
 
+/* --- Mobile: Card Layout --- */
+@media (max-width: 767px) {
+  .article-content table {
+    border: none;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .article-content thead {
+    display: none;
+    /* Hide header row on mobile */
+  }
+
+  .article-content tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .article-content tbody tr {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f1f5f9;
+  }
+
+  .article-content tbody tr:hover {
+    background: white;
+    border-color: #f97316;
+  }
+
+  .article-content td {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 6px 0;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 0.9rem;
+  }
+
+  .article-content td:last-child {
+    border-bottom: none;
+  }
+
+  /* Show column name as label using nth-child */
+  .article-content td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: #64748b;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    min-width: 90px;
+    flex-shrink: 0;
+  }
+}
+
+/* --- Desktop: Normal Table --- */
 @media (min-width: 768px) {
   .article-content table {
     display: table;
+    border-collapse: collapse;
     font-size: 0.95rem;
   }
 
