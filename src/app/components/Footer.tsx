@@ -26,10 +26,10 @@ export default function Footer() {
 
                 {/* Copyright */}
                 <div className="border-t border-gray-800 pt-8 flex flex-col gap-2">
-                    <p className="text-xs text-gray-500 font-medium">
+                    <p className="text-xs text-gray-400 font-medium">
                         © {new Date().getFullYear()} BantuPilih. All rights reserved.
                     </p>
-                    <p className="text-[10px] text-gray-600 uppercase tracking-widest">
+                    <p className="text-[10px] text-gray-500 uppercase tracking-widest">
                         Independently Reviewed & Tested
                     </p>
                 </div>
