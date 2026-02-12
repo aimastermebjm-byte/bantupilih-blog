@@ -205,7 +205,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
             {/* Article Hero (Cleaner Header) */}
             <div className="bg-gradient-to-b from-orange-50 to-white py-8">
-                <div className="container mx-auto px-4 max-w-4xl">
+                <div className="container mx-auto px-4 max-w-3xl">
                     {/* Breadcrumb Only */}
                     <nav className="mb-4">
                         <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -218,7 +218,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             </div>
 
             {/* Article Content Card */}
-            <article className="container mx-auto px-4 pb-12 max-w-4xl -mt-8 relative z-10">
+            <article className="container mx-auto px-4 pb-12 max-w-3xl -mt-8 relative z-10">
                 <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 md:p-12">
 
                     {/* === NEW HEADER SECTION INSIDE CARD === */}
