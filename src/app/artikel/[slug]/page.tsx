@@ -141,7 +141,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     }
 
     // Parse Markdown to HTML (HANDLE EMPTY CONTENT SAFELY)
-    const htmlContent = await marked.parse(article.content || '');
+    // FIX: Remove duplicate H1 title from content (for legacy articles)
+    const contentToRender = (article.content || '')
+        .replace(/^#\s+.+$/m, '') // Remove Markdown H1
+        .replace(/<h1>.*?<\/h1>/i, '') // Remove HTML H1
+        .trim();
+
+    const htmlContent = await marked.parse(contentToRender);
 
     // Article JSON-LD schema for SEO
     const articleSchema = {
