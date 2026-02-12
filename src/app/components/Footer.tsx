@@ -62,6 +62,7 @@ export default function Footer() {
                 <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-400 font-medium">
                     <p>
                         © {new Date().getFullYear()} BantuPilih Media. Independently Reviewed & Tested.
+                        {/* v1.0.1 - High Contrast Footer */}
                     </p>
                     <div className="flex gap-6">
                         <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
