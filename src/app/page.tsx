@@ -82,126 +82,101 @@ export default async function HomePage() {
       {/* 2. Category Navigation (Sticky) */}
       <CategoryNav />
 
-      {/* 3. Hero Featured Article (Magazine Style) */}
-      {featuredArticle && (
-        <section className="bg-gray-50 py-12 border-b border-gray-200">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-col md:flex-row gap-8 items-center">
-              {/* Image (Left) */}
-              <div className="w-full md:w-2/3">
-                <div className="relative aspect-[16/9] rounded-xl overflow-hidden shadow-sm group">
-                  {featuredArticle.bannerUrl ? (
-                    <Link href={`/artikel/${featuredArticle.slug || featuredArticle.id}`}>
-                      <img
-                        src={featuredArticle.bannerUrl}
-                        alt={featuredArticle.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                    </Link>
-                  ) : (
-                    <div className="w-full h-full bg-gray-200 flex items-center justify-center">Featured Image</div>
-                  )}
-                </div>
-              </div>
+      {/* 4. Main Content Area (Wirecutter Style Grid) */}
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
 
-              {/* Content (Right) */}
-              <div className="w-full md:w-1/3 text-center md:text-left">
-                <Link href={`/artikel/${featuredArticle.slug || featuredArticle.id}`} className="group">
-                  <span className="inline-block mb-4 text-orange-600 font-bold tracking-wider text-xs uppercase border-b-2 border-orange-200 pb-1">
-                    {featuredArticle.category}
-                  </span>
-                  <h2 className="text-3xl md:text-4xl font-bold text-gray-900 font-serif leading-tight mb-4 group-hover:text-orange-700 transition-colors">
-                    {featuredArticle.title}
-                  </h2>
-                  <p className="text-gray-600 mb-6 font-sans text-lg leading-relaxed line-clamp-3">
-                    {featuredArticle.excerpt || "Baca review lengkap kami untuk menemukan rekomendasi produk terbaik tahun ini..."}
-                  </p>
-                  <span className="inline-flex items-center font-bold text-orange-600 border border-orange-200 bg-orange-50 px-6 py-3 rounded-lg hover:bg-orange-600 hover:text-white transition-all">
-                    Baca Review Lengkap →
-                  </span>
+          {/* LEFT COLUMN: THE LATEST (25%) */}
+          <div className="lg:col-span-1 border-r border-gray-100 pr-0 lg:pr-8">
+            <div className="sticky top-24">
+              <h3 className="text-xl font-bold font-serif mb-6 border-b-2 border-black pb-2">Terbaru</h3>
+              <div className="flex flex-col gap-6">
+                {recentArticles.slice(0, 5).map((article) => (
+                  <Link key={article.id} href={`/artikel/${article.slug || article.id}`} className="group block">
+                    <span className="text-xs text-gray-400 block mb-1">
+                      {article.createdAt.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}
+                    </span>
+                    <h4 className="text-base font-medium text-gray-900 leading-snug group-hover:text-orange-600 transition-colors">
+                      {article.title}
+                    </h4>
+                  </Link>
+                ))}
+                <Link href="/kategori/semua" className="text-sm font-bold text-orange-600 hover:underline mt-2 inline-block">
+                  Lihat Semua Terbaru →
                 </Link>
               </div>
             </div>
           </div>
-        </section>
-      )}
 
-      {/* 4. Main Content Area (Sidebar Layout) */}
-      <div className="container mx-auto px-4 py-12">
-        <div className="flex flex-col lg:flex-row gap-12">
-
-          {/* Left Column: Latest Reviews */}
-          <div className="lg:w-3/4">
-            <div className="flex items-center justify-between mb-8 border-b-2 border-black pb-2">
-              <h3 className="text-2xl font-bold font-serif">Review Terbaru</h3>
-              <Link href="/kategori/semua" className="text-orange-600 text-sm font-bold hover:underline">Lihat Semua →</Link>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
-              {recentArticles.map((article) => (
-                <Link key={article.id} href={`/artikel/${article.slug || article.id}`} className="group flex flex-col h-full">
-                  {/* Image */}
-                  <div className="relative aspect-[3/2] mb-4 overflow-hidden rounded-lg bg-gray-100">
-                    {article.bannerUrl ? (
-                      <img src={article.bannerUrl} alt={article.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-400">No Image</div>
+          {/* CENTER COOLUMN: FEATURED / POPULAR CATEGORIES (50%) */}
+          <div className="lg:col-span-2">
+            {/* Big Hero Featured (If valid) */}
+            {featuredArticle && (
+              <div className="mb-12">
+                <Link href={`/artikel/${featuredArticle.slug || featuredArticle.id}`} className="group block mb-4">
+                  <div className="aspect-[16/9] bg-gray-100 rounded-lg overflow-hidden mb-4">
+                    {featuredArticle.bannerUrl && (
+                      <img src={featuredArticle.bannerUrl} alt={featuredArticle.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     )}
                   </div>
+                  <span className="text-orange-600 font-bold text-xs uppercase tracking-wider mb-2 block">{featuredArticle.category}</span>
+                  <h2 className="text-3xl md:text-4xl font-bold font-serif text-gray-900 leading-tight mb-3 group-hover:text-orange-600 transition-colors">
+                    {featuredArticle.title}
+                  </h2>
+                  <p className="text-gray-600 leading-relaxed">
+                    {featuredArticle.excerpt || "Baca review lengkap dan mendalam kami..."}
+                  </p>
+                </Link>
+              </div>
+            )}
 
-                  {/* Text */}
-                  <div className="flex flex-col flex-grow">
-                    <span className="text-xs font-bold text-orange-600 uppercase tracking-wide mb-2">{article.category}</span>
-                    <h4 className="text-xl font-bold text-gray-900 font-serif leading-snug mb-3 group-hover:text-orange-700">
-                      {article.title}
-                    </h4>
-                    <p className="text-gray-500 text-sm leading-relaxed line-clamp-2 mb-4">
-                      {article.excerpt || "Review komprehensif, independen, dan terpercaya..."}
-                    </p>
-                    <div className="mt-auto text-xs text-gray-400 font-medium">
-                      {article.createdAt.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
-                    </div>
+            {/* Secondary Grid (Below Hero) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-gray-200">
+              {recentArticles.slice(5, 9).map((article) => (
+                <Link key={article.id} href={`/artikel/${article.slug || article.id}`} className="group">
+                  <div className="aspect-[3/2] bg-gray-100 rounded mb-3 overflow-hidden">
+                    {article.bannerUrl && <img src={article.bannerUrl} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />}
                   </div>
+                  <h4 className="font-bold text-lg leading-snug text-gray-900 group-hover:text-orange-600 font-serif">
+                    {article.title}
+                  </h4>
                 </Link>
               ))}
             </div>
           </div>
 
-          {/* Right Column: Sidebar (Sticky) */}
-          <aside className="lg:w-1/4 space-y-8">
+          {/* RIGHT COLUMN: POPULAR / DEALS (25%) */}
+          <aside className="lg:col-span-1 border-l border-gray-100 pl-0 lg:pl-8">
+            <div className="sticky top-24 space-y-10">
+              {/* Popular Widget */}
+              <div>
+                <h4 className="text-lg font-bold font-serif mb-4 border-b border-gray-200 pb-2">Populer</h4>
+                <ul className="space-y-4">
+                  {/* Placeholder for popular items (using recent for now to fill) */}
+                  {articles.slice(0, 4).map((article, i) => (
+                    <li key={article.id} className="group">
+                      <Link href={`/artikel/${article.slug || article.id}`} className="flex gap-4 items-start">
+                        <span className="text-3xl font-black text-gray-200 font-serif -mt-2 group-hover:text-orange-200">{i + 1}</span>
+                        <h5 className="text-sm font-medium text-gray-700 leading-snug group-hover:text-orange-600">
+                          {article.title}
+                        </h5>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-            {/* About Widget */}
-            <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-              <h4 className="text-lg font-bold font-serif mb-4">Tentang Kami</h4>
-              <p className="text-sm text-gray-600 mb-4 leading-relaxed">
-                BantuPilih adalah situs review independen. Kami melakukan riset mendalam agar Anda bisa belanja tanpa ragu.
-              </p>
-              <Link href="/about" className="text-orange-600 text-sm font-bold hover:underline">Pelajari Misi Kami →</Link>
+              {/* Newsletter Box */}
+              <div className="bg-orange-50 p-6 rounded-xl border border-orange-100 text-center">
+                <h4 className="font-bold text-gray-900 mb-2">Jangan Sampai Salah Beli!</h4>
+                <p className="text-xs text-gray-600 mb-4">Dapatkan panduan belanja terpilih setiap minggu.</p>
+                <button className="w-full bg-orange-600 text-white text-sm font-bold py-2 rounded hover:bg-orange-700 transition">
+                  Langganan Gratis
+                </button>
+              </div>
             </div>
-
-            {/* Trending / Popular (Hardcoded for now / Placeholder) */}
-            <div>
-              <h4 className="text-lg font-bold font-serif mb-4 border-b border-gray-200 pb-2">Populer Minggu Ini</h4>
-              <ul className="space-y-4">
-                {[1, 2, 3].map((i) => (
-                  <li key={i} className="flex gap-4 group">
-                    <span className="text-3xl font-black text-gray-200 font-serif group-hover:text-orange-200">{i}</span>
-                    <div className="h-4 bg-gray-100 w-full rounded animate-pulse"></div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Newsletter / CTA */}
-            <div className="bg-orange-600 text-white p-6 rounded-xl text-center">
-              <h4 className="text-lg font-bold font-serif mb-2">Jangan Salah Pilih!</h4>
-              <p className="text-sm text-orange-100 mb-4">Dapatkan rekomendasi produk terbaik langsung ke email Anda.</p>
-              <button className="w-full bg-white text-orange-600 font-bold py-2 rounded shadow-sm hover:bg-gray-50 transition-colors">
-                Langganan Gratis
-              </button>
-            </div>
-
           </aside>
+
         </div>
       </div>
 
