@@ -203,52 +203,74 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 </div>
             </header>
 
-            {/* Article Hero */}
+            {/* Article Hero (Cleaner Header) */}
             <div className="bg-gradient-to-b from-orange-50 to-white py-8">
                 <div className="container mx-auto px-4 max-w-4xl">
-                    {/* Breadcrumb */}
-                    <nav className="mb-6">
+                    {/* Breadcrumb Only */}
+                    <nav className="mb-4">
                         <div className="flex items-center gap-2 text-sm text-gray-500">
                             <Link href="/" className="hover:text-orange-600">Home</Link>
                             <span>/</span>
-                            <span className="text-orange-600">{article.category || 'Artikel'}</span>
+                            <span className="text-orange-600 font-medium">{article.category || 'Artikel'}</span>
                         </div>
                     </nav>
-
-                    {/* Article Meta */}
-                    <div className="flex flex-wrap items-center gap-3 mb-4">
-                        <span className="bg-gradient-to-r from-orange-500 to-orange-600 text-white text-sm px-4 py-1.5 rounded-full font-medium">
-                            {article.category || 'Artikel'}
-                        </span>
-                        <span className="text-gray-500 text-sm">
-                            {article.createdAt.toLocaleDateString('id-ID', {
-                                day: 'numeric',
-                                month: 'long',
-                                year: 'numeric'
-                            })}
-                        </span>
-                    </div>
-
-                    {/* Article Title (H1) - RESTORED */}
-                    <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-                        {article.title}
-                    </h1>
-
-                    {/* Verification Badge */}
-                    <VerifiedBy />
                 </div>
             </div>
 
-            {/* Article Content */}
-            <article className="container mx-auto px-4 py-8 max-w-4xl">
-                <div className="bg-white rounded-2xl shadow-lg p-6 md:p-10">
+            {/* Article Content Card */}
+            <article className="container mx-auto px-4 pb-12 max-w-4xl -mt-8 relative z-10">
+                <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 md:p-12">
+
+                    {/* === NEW HEADER SECTION INSIDE CARD === */}
+                    <div className="mb-8 border-b border-gray-100 pb-8">
+                        {/* Meta Tags */}
+                        <div className="flex flex-wrap items-center gap-3 mb-4">
+                            <span className="bg-orange-100 text-orange-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
+                                {article.category || 'Review'}
+                            </span>
+                            <span className="text-gray-500 text-sm flex items-center gap-1">
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                {article.createdAt.toLocaleDateString('id-ID', {
+                                    day: 'numeric', month: 'long', year: 'numeric'
+                                })}
+                            </span>
+                        </div>
+
+                        {/* Big Title */}
+                        <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-6 leading-tight tracking-tight">
+                            {article.title}
+                        </h1>
+
+                        {/* Author / Verified By */}
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden">
+                                    <span className="text-lg">👨‍💻</span>
+                                </div>
+                                <div className="text-sm">
+                                    <p className="font-bold text-gray-900">Tim Riset BantuPilih</p>
+                                    <p className="text-gray-500">Artikel Pilihan Editor</p>
+                                </div>
+                            </div>
+                            <div className="hidden md:block">
+                                <VerifiedBy />
+                            </div>
+                        </div>
+                    </div>
+
                     {/* Article HTML Content */}
                     <div
-                        className="article-content"
+                        className="article-content prose prose-lg prose-orange max-w-none"
                         dangerouslySetInnerHTML={{ __html: htmlContent }}
                     />
+
                     {/* Inject data-label for mobile table card layout */}
                     <TableResponsive />
+                </div>
+
+                {/* Verification Badge Mobile (If needed below) */}
+                <div className="md:hidden mt-6">
+                    <VerifiedBy />
                 </div>
 
                 {/* Share & Actions */}
