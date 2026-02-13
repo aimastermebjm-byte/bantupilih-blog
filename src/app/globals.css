@@ -476,15 +476,28 @@ h6 {
   padding: 10px 20px !important;
 }
 
-/* Inject NEW Generic Text */
+/* Inject NEW Generic Text - Clean & Professional */
 .article-content a[href*="shopee"]::after,
 .article-content a[href*="shp.ee"]::after,
 .article-content a[style*="border-radius"]::after {
-  content: "👉 Beli di Shopee (Cek Promo)";
+  content: "Cek Harga Terbaru di Shopee";
   font-size: 16px !important;
   font-weight: bold !important;
   color: white !important;
   display: block !important;
+}
+
+/* === TABLE PRICE DISCLAIMER ===
+   Add disclaimer text automatically below comparison tables */
+.table-scroll-wrapper::after {
+  content: "*Harga diatas adalah harga saat artikel dibuat dan dapat berubah sewaktu-waktu. Cek harga terbaru di Shopee.";
+  display: block;
+  font-size: 12px;
+  color: #6b7280;
+  /* gray-500 */
+  margin-top: 8px;
+  font-style: italic;
+  text-align: right;
 }
 
 /* Banner image: same width as text, clean edges, NO GAP */
