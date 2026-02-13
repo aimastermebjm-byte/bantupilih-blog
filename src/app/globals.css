@@ -477,6 +477,12 @@ h6 {
 }
 
 /* Inject NEW Generic Text - Clean & Professional */
+/* Utility to hide legacy first image when rendering explicit banner */
+.article-content.hide-first-image>img:first-child,
+.article-content.hide-first-image img[alt*="Banner"] {
+  display: none !important;
+}
+
 .article-content a[href*="shopee"]::after,
 .article-content a[href*="shp.ee"]::after,
 .article-content a[style*="border-radius"]::after {

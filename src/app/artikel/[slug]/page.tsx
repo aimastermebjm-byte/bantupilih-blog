@@ -237,30 +237,46 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                         </div>
 
                         {/* Big Title */}
+                        {/* BIG TITLE */}
                         <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-6 leading-tight tracking-tight">
                             {article.title}
                         </h1>
 
-                        {/* Author / Verified By */}
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden">
+                        {/* EXPLICIT BANNER (New Layout: Title -> Image -> Author -> Content) */}
+                        {article.bannerUrl ? (
+                            <div className="mb-6">
+                                <img
+                                    src={article.bannerUrl}
+                                    alt={article.title}
+                                    className="w-full h-auto rounded-xl object-cover shadow-sm"
+                                />
+                                {/* Author Section (Below Image) */}
+                                <div className="flex items-center gap-3 mt-6 mb-8 border-b border-gray-100 pb-6">
+                                    <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden">
+                                        <span className="text-lg">👨‍💻</span>
+                                    </div>
+                                    <div className="text-sm">
+                                        <p className="text-gray-900 font-medium">By <span className="font-bold">Tim Riset BantuPilih</span></p>
+                                        <p className="text-xs text-gray-500">Updated: {new Date().getFullYear()}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        ) : (
+                            /* Fallback Author Position (if no bannerUrl found) */
+                            <div className="flex items-center gap-3 mb-8 border-b border-gray-100 pb-6">
+                                <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden">
                                     <span className="text-lg">👨‍💻</span>
                                 </div>
                                 <div className="text-sm">
-                                    <p className="font-bold text-gray-900">Tim Riset BantuPilih</p>
-                                    <p className="text-gray-500">Artikel Pilihan Editor</p>
+                                    <p className="text-gray-900 font-medium">By <span className="font-bold">Tim Riset BantuPilih</span></p>
                                 </div>
                             </div>
-                            <div className="hidden md:block">
-                                <VerifiedBy />
-                            </div>
-                        </div>
+                        )}
                     </div>
 
-                    {/* Article HTML Content */}
+                    {/* Article HTML Content (Hide first image if we rendered specific banner) */}
                     <div
-                        className="article-content prose prose-lg prose-orange max-w-none"
+                        className={`article-content prose prose-lg prose-orange max-w-none ${article.bannerUrl ? 'hide-first-image' : ''}`}
                         dangerouslySetInnerHTML={{ __html: htmlContent }}
                     />
 
