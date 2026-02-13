@@ -471,22 +471,13 @@ h6 {
   border-radius: 4px !important;
 }
 
-/* Banner image: remove rounded corners for seamless look */
+/* Banner image: full-bleed across entire viewport */
 .article-content>img:first-child,
 .article-content img[alt*="Banner"] {
   border-radius: 0 !important;
-  margin-left: -8px;
-  margin-right: -8px;
-  width: calc(100% + 16px);
-  max-width: none !important;
-}
-
-@media (min-width: 768px) {
-
-  .article-content>img:first-child,
-  .article-content img[alt*="Banner"] {
-    margin-left: -32px;
-    margin-right: -32px;
-    width: calc(100% + 64px);
-  }
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin-left: calc(-50vw + 50%) !important;
+  margin-right: calc(-50vw + 50%) !important;
+  display: block;
 }
