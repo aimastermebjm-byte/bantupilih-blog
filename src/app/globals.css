@@ -483,11 +483,17 @@ h6 {
   box-shadow: none !important;
 }
 
-/* ALL Article Content Images (Product Images): Full Width & Clean */
+/* ALL Article Content Images (Product Images) */
 .article-content img {
   width: 100% !important;
   max-width: 100% !important;
   height: auto !important;
+  max-height: 500px !important;
+  /* Limit height so it doesn't take full screen */
+  object-fit: contain !important;
+  /* Ensure image isn't cropped */
+  background-color: #fff;
+  /* White bg for transparent pngs */
   border-radius: 8px !important;
   margin: 24px 0 !important;
   display: block !important;
