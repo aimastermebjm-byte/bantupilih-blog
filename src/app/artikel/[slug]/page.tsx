@@ -284,7 +284,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 <div className="mt-8 flex flex-wrap gap-4 justify-center">
                     <Link
                         href="/"
-                        className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-8 py-3 rounded-full font-medium hover:shadow-lg transition-all"
+                        className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-8 py-3 rounded-lg font-medium hover:shadow-lg transition-all"
                     >
                         ← Lihat Artikel Lainnya
                     </Link>
@@ -303,7 +303,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                             href={`https://wa.me/?text=Rekomendasi terbaik: ${article.title} %0A%0A ${`https://blog-bice-three-80.vercel.app/artikel/${slug}`}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="bg-green-500 text-white px-6 py-2 rounded-full font-medium hover:bg-green-600 transition-colors flex items-center gap-2"
+                            className="bg-green-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-green-600 transition-colors flex items-center gap-2"
                         >
                             <span>WhatsApp</span>
                         </a>
@@ -311,7 +311,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                             href={`https://www.facebook.com/sharer/sharer.php?u=${`https://blog-bice-three-80.vercel.app/artikel/${slug}`}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="bg-blue-600 text-white px-6 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors flex items-center gap-2"
+                            className="bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center gap-2"
                         >
                             <span>Facebook</span>
                         </a>
@@ -319,7 +319,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
                     <Link
                         href="/"
-                        className="inline-block border-2 border-orange-500 text-orange-600 px-8 py-2.5 rounded-full font-medium hover:bg-orange-50 transition-all"
+                        className="inline-block border-2 border-orange-500 text-orange-600 px-8 py-2.5 rounded-lg font-medium hover:bg-orange-50 transition-all"
                     >
                         Jelajahi Artikel Lain →
                     </Link>
