@@ -114,7 +114,7 @@ export default async function HomePage() {
             {featuredArticle && (
               <div className="mb-12">
                 <Link href={`/artikel/${featuredArticle.slug || featuredArticle.id}`} className="group block mb-4">
-                  <div className="aspect-[16/9] bg-gray-100 rounded-lg overflow-hidden mb-4">
+                  <div className="aspect-[16/9] overflow-hidden mb-4">
                     {featuredArticle.bannerUrl && (
                       <img src={featuredArticle.bannerUrl} alt={featuredArticle.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     )}
@@ -142,7 +142,7 @@ export default async function HomePage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {articles.filter(a => a.category?.toLowerCase() === 'elektronik').slice(0, 4).map((article) => (
                     <Link key={article.id} href={`/artikel/${article.slug || article.id}`} className="group">
-                      <div className="aspect-[3/2] bg-gray-100 rounded mb-3 overflow-hidden">
+                      <div className="aspect-[3/2] overflow-hidden mb-3">
                         {article.bannerUrl && <img src={article.bannerUrl} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />}
                       </div>
                       <h4 className="font-bold text-lg leading-snug text-gray-900 group-hover:text-orange-600 font-serif">
@@ -163,7 +163,7 @@ export default async function HomePage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {articles.filter(a => a.category?.toLowerCase() === 'fashion' || a.category?.toLowerCase() === 'lifestyle').slice(0, 4).map((article) => (
                     <Link key={article.id} href={`/artikel/${article.slug || article.id}`} className="group">
-                      <div className="aspect-[3/2] bg-gray-100 rounded mb-3 overflow-hidden">
+                      <div className="aspect-[3/2] overflow-hidden mb-3">
                         {article.bannerUrl && <img src={article.bannerUrl} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />}
                       </div>
                       <h4 className="font-bold text-lg leading-snug text-gray-900 group-hover:text-orange-600 font-serif">
@@ -183,7 +183,7 @@ export default async function HomePage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {articles.filter(a => a.category?.toLowerCase() === 'rumah tangga' || a.category?.toLowerCase() === 'home').slice(0, 4).map((article) => (
                     <Link key={article.id} href={`/artikel/${article.slug || article.id}`} className="group">
-                      <div className="aspect-[3/2] bg-gray-100 rounded mb-3 overflow-hidden">
+                      <div className="aspect-[3/2] overflow-hidden mb-3">
                         {article.bannerUrl && <img src={article.bannerUrl} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />}
                       </div>
                       <h4 className="font-bold text-lg leading-snug text-gray-900 group-hover:text-orange-600 font-serif">
