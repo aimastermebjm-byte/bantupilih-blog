@@ -471,12 +471,35 @@ h6 {
   border-radius: 4px !important;
 }
 
-/* Banner image: same width as text, clean edges */
+/* Banner image: same width as text, clean edges, NO GAP */
 .article-content>img:first-child,
 .article-content img[alt*="Banner"] {
   border-radius: 0 !important;
   width: 100% !important;
   max-width: 100% !important;
   display: block;
-  margin: 0 auto !important;
+  margin: 0 auto 0 auto !important;
+  /* Remove bottom margin to merge with text */
+  box-shadow: none !important;
+}
+
+/* ALL Article Content Images (Product Images): Full Width & Clean */
+.article-content img {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  border-radius: 8px !important;
+  margin: 24px 0 !important;
+  display: block !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Exception for small icons/emojis if any (adjust selector if needed) */
+.article-content img.icon,
+.article-content img[width="16"],
+.article-content img[height="16"] {
+  width: auto !important;
+  display: inline-block !important;
+  margin: 0 !important;
+  box-shadow: none !important;
 }
