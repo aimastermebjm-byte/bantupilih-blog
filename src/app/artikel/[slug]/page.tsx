@@ -251,7 +251,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                                     className="w-full h-auto rounded-xl object-cover shadow-sm"
                                 />
                                 {/* Author Section (Below Image) */}
-                                <div className="flex items-center gap-3 mt-6 mb-8 border-b border-gray-100 pb-6">
+                                <div className="flex items-center gap-3 mt-4 mb-2 border-b border-gray-100 pb-4">
                                     <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden">
                                         <span className="text-lg">👨‍💻</span>
                                     </div>

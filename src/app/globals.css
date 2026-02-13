@@ -497,33 +497,44 @@ h6 {
    Below scroll wrapper to ensure visibility & alignment */
 /* === TABLE PRICE DISCLAIMER ===
    Below scroll wrapper to ensure visibility & alignment */
+/* === TABLE PRICE DISCLAIMER ===
+   Below scroll wrapper to ensure visibility & alignment */
 .table-scroll-wrapper {
   display: flex !important;
   flex-direction: column;
+  position: relative;
   width: 100%;
   overflow-x: auto;
-  /* Keep scroll capability */
+  margin-bottom: 2rem;
 }
 
-/* The table inside takes natural order (1) */
 .table-scroll-wrapper>table {
   order: 1;
-  width: 100%;
+  margin-bottom: 0 !important;
 }
 
-/* The disclaimer (pseudo-element) takes order (2) -> BOTTOM */
 .table-scroll-wrapper::after {
   content: "*Harga diatas adalah harga saat artikel dibuat dan dapat berubah sewaktu-waktu. Cek harga terbaru di Shopee.";
   order: 2;
   display: block;
+  position: sticky;
+  left: 0;
   width: 100%;
   text-align: right;
   font-size: 11px;
   color: #6b7280;
   font-style: italic;
-  margin-top: 8px;
-  margin-bottom: 24px;
-  padding-right: 4px;
+  padding: 8px 4px 0 0;
+  background-color: white;
+  /* Prevent transparent overlap */
+}
+
+font-size: 11px;
+color: #6b7280;
+font-style: italic;
+margin-top: 8px;
+margin-bottom: 24px;
+padding-right: 4px;
 }
 
 /* Ensure table container doesn't hide overflow of this disclaimer if possible */
