@@ -461,3 +461,12 @@ h6 {
   mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
   -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
 }
+
+/* === ARTICLE CONTENT: Shopee CTA Button Override ===
+   Override inline rounded-pill styles from AI-generated articles
+   to clean rectangular tag style */
+.article-content a[href*="shopee"],
+.article-content a[href*="shp.ee"],
+.article-content a[style*="border-radius"] {
+  border-radius: 4px !important;
+}
