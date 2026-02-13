@@ -463,12 +463,28 @@ h6 {
 }
 
 /* === ARTICLE CONTENT: Shopee CTA Button Override ===
-   Override inline rounded-pill styles from AI-generated articles
-   to clean rectangular tag style */
+   Override inline rounded-pill styles & REPLACE TEXT content
+   to avoid showing static prices. */
 .article-content a[href*="shopee"],
 .article-content a[href*="shp.ee"],
 .article-content a[style*="border-radius"] {
   border-radius: 4px !important;
+  font-size: 0 !important;
+  /* HIde original text (e.g. "Shopee Rp 5.000.000") */
+  display: inline-flex !important;
+  align-items: center;
+  padding: 10px 20px !important;
+}
+
+/* Inject NEW Generic Text */
+.article-content a[href*="shopee"]::after,
+.article-content a[href*="shp.ee"]::after,
+.article-content a[style*="border-radius"]::after {
+  content: "👉 Beli di Shopee (Cek Promo)";
+  font-size: 16px !important;
+  font-weight: bold !important;
+  color: white !important;
+  display: block !important;
 }
 
 /* Banner image: same width as text, clean edges, NO GAP */
