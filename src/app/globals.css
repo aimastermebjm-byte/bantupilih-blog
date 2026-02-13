@@ -488,16 +488,40 @@ h6 {
 }
 
 /* === TABLE PRICE DISCLAIMER ===
-   Add disclaimer text automatically below comparison tables */
+   Using table-caption to ensure it stays with the table but below it */
+.article-content table {
+  caption-side: bottom;
+}
+
+.article-content table caption {
+  display: table-caption;
+  caption-side: bottom;
+  text-align: right;
+  font-size: 11px;
+  color: #6b7280;
+  font-style: italic;
+  margin-top: 8px;
+  padding-right: 4px;
+}
+
+/* If the table doesn't have a caption in HTML, we can use ::after on the table
+   However, ::after on table is not guaranteed to render below rows in all browsers.
+   Best approach: Use the wrapper ::after but ensure block formatting context. */
+
+
 .table-scroll-wrapper::after {
   content: "*Harga diatas adalah harga saat artikel dibuat dan dapat berubah sewaktu-waktu. Cek harga terbaru di Shopee.";
   display: block;
-  font-size: 12px;
+  width: 100%;
+  font-size: 11px;
   color: #6b7280;
-  /* gray-500 */
-  margin-top: 8px;
   font-style: italic;
   text-align: right;
+  padding-top: 8px;
+  /* Ensure it doesn't participate in horizontal scroll if possible,
+     but inside wrapper it might. */
+  position: sticky;
+  left: 0;
 }
 
 /* Banner image: same width as text, clean edges, NO GAP */
