@@ -492,12 +492,14 @@ h6 {
   /* Limit height so it doesn't take full screen */
   object-fit: contain !important;
   /* Ensure image isn't cropped */
-  background-color: #fff;
-  /* White bg for transparent pngs */
+
+  /* Seamless: No shadow, No background color */
+  background-color: transparent !important;
+  box-shadow: none !important;
   border-radius: 8px !important;
+
   margin: 24px 0 !important;
   display: block !important;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
 }
 
 /* Exception for small icons/emojis if any (adjust selector if needed) */
