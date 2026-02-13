@@ -180,6 +180,11 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         }),
     };
 
+    // Inject Table Disclaimer via Caption (Robust Fix)
+    const disclaimerHTML = `<caption style="caption-side: bottom; text-align: right; font-size: 11px; color: #6b7280; font-style: italic; margin-top: 8px; display: table-caption;">*Harga diatas adalah harga saat artikel dibuat dan dapat berubah sewaktu-waktu. Cek harga terbaru di Shopee.</caption>`;
+    const finalHtmlContent = htmlContent.replace(/<\/table>/g, `${disclaimerHTML}</table>`);
+
+
     return (
         <main className="min-h-screen bg-white">
             {/* Article JSON-LD */}
@@ -204,10 +209,10 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             </header>
 
             {/* Article Hero (Cleaner Header) */}
-            <div className="bg-gradient-to-b from-orange-50 to-white py-8">
+            <div className="bg-gradient-to-b from-orange-50 to-white py-4">
                 <div className="container mx-auto px-4 max-w-3xl">
                     {/* Breadcrumb Only */}
-                    <nav className="mb-4">
+                    <nav className="mb-2">
                         <div className="flex items-center gap-2 text-sm text-gray-500">
                             <Link href="/" className="hover:text-orange-600">Home</Link>
                             <span>/</span>
@@ -219,12 +224,12 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
             {/* Article Content Card */}
             <article className="container mx-auto px-4 pb-12 max-w-3xl">
-                <div className="p-2 md:p-8">
+                <div className="p-0 md:p-0">
 
                     {/* === NEW HEADER SECTION INSIDE CARD === */}
-                    <div className="mb-8 border-b border-gray-100 pb-8">
+                    <div className="mb-4 border-b border-gray-100 pb-4">
                         {/* Meta Tags */}
-                        <div className="flex flex-wrap items-center gap-3 mb-4">
+                        <div className="flex flex-wrap items-center gap-3 mb-2">
                             <span className="bg-orange-100 text-orange-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
                                 {article.category || 'Review'}
                             </span>
@@ -237,14 +242,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                         </div>
 
                         {/* Big Title */}
-                        {/* BIG TITLE */}
-                        <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-6 leading-tight tracking-tight">
+                        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 leading-tight tracking-tight">
                             {article.title}
                         </h1>
 
                         {/* EXPLICIT BANNER (New Layout: Title -> Image -> Author -> Content) */}
                         {article.bannerUrl ? (
-                            <div className="mb-6">
+                            <div className="mb-4">
                                 <img
                                     src={article.bannerUrl}
                                     alt={article.title}
