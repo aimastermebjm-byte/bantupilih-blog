@@ -529,13 +529,7 @@ h6 {
   /* Prevent transparent overlap */
 }
 
-font-size: 11px;
-color: #6b7280;
-font-style: italic;
-margin-top: 8px;
-margin-bottom: 24px;
-padding-right: 4px;
-}
+
 
 /* Ensure table container doesn't hide overflow of this disclaimer if possible */
 .table-scroll-wrapper {
