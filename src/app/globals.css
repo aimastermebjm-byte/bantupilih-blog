@@ -493,15 +493,37 @@ h6 {
   display: block !important;
 }
 
-/* === FIX: Override prose-orange <hr> color ===
-   prose-orange makes ALL <hr> orange. We want them gray/neutral. */
+/* === DEFINITIVE FIX: Hide ALL <hr> in article content ===
+   Gemini sometimes inserts <hr> in wrong places. We hide them all.
+   Product separator uses <div class="product-divider"> instead. */
 .article-content hr {
-  border-color: #e5e7eb !important;
-  /* gray-200 */
-  border-top-width: 1px !important;
-  opacity: 0.6;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  display: none !important;
+}
+
+/* === Product Separator (Between products, NOT <hr>) === */
+.article-content .product-divider {
+  height: 2px;
+  background: linear-gradient(to right, #FF5722, #FF7043);
+  margin: 32px 0;
+  border-radius: 2px;
+}
+
+/* === Article Typography: Tighter spacing, larger font for mobile === */
+.article-content {
+  font-size: 17px !important;
+  line-height: 1.6 !important;
+}
+
+.article-content p {
+  margin-bottom: 0.85em !important;
+  margin-top: 0 !important;
+}
+
+/* Kelebihan / Kekurangan list items - tighter */
+.article-content ul li,
+.article-content ol li {
+  margin-top: 0.2em !important;
+  margin-bottom: 0.2em !important;
 }
 
 /* === FIX: Override prose-orange heading colors in reviews ===
@@ -509,7 +531,6 @@ h6 {
 .article-content h3,
 .article-content h4 {
   color: #1f2937 !important;
-  /* gray-800 */
   font-size: inherit;
 }
 

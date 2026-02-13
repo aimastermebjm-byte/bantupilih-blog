@@ -180,9 +180,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         }),
     };
 
-    // Inject Table Disclaimer via Caption (Robust Fix)
-    const disclaimerHTML = `<caption style="caption-side: bottom; text-align: right; font-size: 11px; color: #6b7280; font-style: italic; margin-top: 8px; display: table-caption;">*Harga diatas adalah harga saat artikel dibuat dan dapat berubah sewaktu-waktu. Cek harga terbaru di Shopee.</caption>`;
-    const finalHtmlContent = htmlContent.replace(/<\/table>/g, `${disclaimerHTML}</table>`);
+    // Inject Table Disclaimer as a <p> tag AFTER each table (Robust Fix)
+    const disclaimerHTML = `<p style="text-align: right; font-size: 11px; color: #6b7280; font-style: italic; margin-top: 8px; margin-bottom: 24px; padding-right: 4px;">*Harga diatas adalah harga saat artikel dibuat dan dapat berubah sewaktu-waktu. Cek harga terbaru di Shopee.</p>`;
+    const finalHtmlContent = htmlContent.replace(/<\/table>/g, `</table>${disclaimerHTML}`);
 
 
     return (
