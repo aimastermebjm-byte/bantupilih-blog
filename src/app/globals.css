@@ -493,6 +493,26 @@ h6 {
   display: block !important;
 }
 
+/* === FIX: Override prose-orange <hr> color ===
+   prose-orange makes ALL <hr> orange. We want them gray/neutral. */
+.article-content hr {
+  border-color: #e5e7eb !important;
+  /* gray-200 */
+  border-top-width: 1px !important;
+  opacity: 0.6;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* === FIX: Override prose-orange heading colors in reviews ===
+   Prevent review headings from being styled as large orange text */
+.article-content h3,
+.article-content h4 {
+  color: #1f2937 !important;
+  /* gray-800 */
+  font-size: inherit;
+}
+
 /* === TABLE PRICE DISCLAIMER ===
    Below scroll wrapper to ensure visibility & alignment */
 /* === TABLE PRICE DISCLAIMER ===
