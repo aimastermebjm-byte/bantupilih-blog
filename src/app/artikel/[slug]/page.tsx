@@ -181,7 +181,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     };
 
     return (
-        <main className="min-h-screen bg-gray-50">
+        <main className="min-h-screen bg-white">
             {/* Article JSON-LD */}
             <script
                 type="application/ld+json"
@@ -218,8 +218,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             </div>
 
             {/* Article Content Card */}
-            <article className="container mx-auto px-4 pb-12 max-w-3xl -mt-8 relative z-10">
-                <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 md:p-12">
+            <article className="container mx-auto px-4 pb-12 max-w-3xl">
+                <div className="p-2 md:p-8">
 
                     {/* === NEW HEADER SECTION INSIDE CARD === */}
                     <div className="mb-8 border-b border-gray-100 pb-8">

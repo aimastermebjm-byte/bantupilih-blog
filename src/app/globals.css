@@ -470,3 +470,23 @@ h6 {
 .article-content a[style*="border-radius"] {
   border-radius: 4px !important;
 }
+
+/* Banner image: remove rounded corners for seamless look */
+.article-content>img:first-child,
+.article-content img[alt*="Banner"] {
+  border-radius: 0 !important;
+  margin-left: -8px;
+  margin-right: -8px;
+  width: calc(100% + 16px);
+  max-width: none !important;
+}
+
+@media (min-width: 768px) {
+
+  .article-content>img:first-child,
+  .article-content img[alt*="Banner"] {
+    margin-left: -32px;
+    margin-right: -32px;
+    width: calc(100% + 64px);
+  }
+}
