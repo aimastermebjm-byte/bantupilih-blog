@@ -265,12 +265,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                     />
 
                     {/* Global Affiliate Disclaimer */}
-                    <div className="mt-8 pt-6 border-t border-gray-100 text-sm text-gray-500 italic bg-gray-50 p-4 rounded-lg">
-                        <p className="mb-2 font-semibold">Transparansi Kami:</p>
+                    <div className="mt-8 pt-6 border-t border-gray-100 text-sm text-gray-500 italic bg-gray-50 p-4 rounded-lg text-center">
                         <p>
-                            Konten ini dibuat secara independen oleh tim riset kami. BantuPilih adalah peserta Program Afiliasi Shopee.
-                            Apabila Anda membeli produk melalui link di halaman ini, kami mungkin memperoleh komisi
-                            (tanpa biaya tambahan sama sekali bagi Anda). Pendapatan ini membantu kami tetap gratis dan berkualitas.
+                            "Kami mereview produk secara independen. Ketika Anda membeli melalui tautan kami, kami mungkin mendapatkan komisi tanpa biaya tambahan bagi Anda."
                         </p>
                     </div>
 
