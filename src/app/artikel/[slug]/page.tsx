@@ -227,7 +227,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 <div className="p-0 md:p-0">
 
                     {/* === NEW HEADER SECTION INSIDE CARD === */}
-                    <div className="mb-4 border-b border-gray-100 pb-4">
+                    <div className="mb-2">
                         {/* Meta Tags */}
                         <div className="flex flex-wrap items-center gap-3 mb-2">
                             <span className="bg-orange-100 text-orange-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
@@ -242,20 +242,20 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                         </div>
 
                         {/* Big Title */}
-                        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 leading-tight tracking-tight">
+                        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3 leading-tight tracking-tight">
                             {article.title}
                         </h1>
 
                         {/* EXPLICIT BANNER (New Layout: Title -> Image -> Author -> Content) */}
                         {article.bannerUrl ? (
-                            <div className="mb-4">
+                            <div className="mb-1">
                                 <img
                                     src={article.bannerUrl}
                                     alt={article.title}
                                     className="w-full h-auto rounded-xl object-cover shadow-sm"
                                 />
                                 {/* Author Section (Below Image) */}
-                                <div className="flex items-center gap-3 mt-4 mb-2 border-b border-gray-100 pb-4">
+                                <div className="flex items-center gap-3 mt-2 mb-1 border-b border-gray-100 pb-2">
                                     <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden">
                                         <span className="text-lg">👨‍💻</span>
                                     </div>
@@ -281,7 +281,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                     {/* Article HTML Content (Hide first image if we rendered specific banner) */}
                     <div
                         className={`article-content prose prose-lg prose-orange max-w-none ${article.bannerUrl ? 'hide-first-image' : ''}`}
-                        dangerouslySetInnerHTML={{ __html: htmlContent }}
+                        dangerouslySetInnerHTML={{ __html: finalHtmlContent }}
                     />
 
                     {/* Global Affiliate Disclaimer */}

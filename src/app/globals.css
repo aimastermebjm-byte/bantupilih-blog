@@ -514,14 +514,9 @@ h6 {
 }
 
 /* === TABLE PRICE DISCLAIMER ===
-   Below scroll wrapper to ensure visibility & alignment */
-/* === TABLE PRICE DISCLAIMER ===
-   Below scroll wrapper to ensure visibility & alignment */
-/* === TABLE PRICE DISCLAIMER ===
-   Below scroll wrapper to ensure visibility & alignment */
+   Disclaimer is injected via HTML <caption> in page.tsx.
+   Wrapper only needs to support scrollable table layout. */
 .table-scroll-wrapper {
-  display: flex !important;
-  flex-direction: column;
   position: relative;
   width: 100%;
   overflow-x: auto;
@@ -529,46 +524,18 @@ h6 {
 }
 
 .table-scroll-wrapper>table {
-  order: 1;
   margin-bottom: 0 !important;
 }
 
-.table-scroll-wrapper::after {
-  content: "*Harga diatas adalah harga saat artikel dibuat dan dapat berubah sewaktu-waktu. Cek harga terbaru di Shopee.";
-  order: 2;
-  display: block;
-  position: sticky;
-  left: 0;
-  width: 100%;
+/* Style the injected <caption> disclaimer */
+.article-content table caption {
+  caption-side: bottom;
   text-align: right;
   font-size: 11px;
   color: #6b7280;
   font-style: italic;
   padding: 8px 4px 0 0;
-  background-color: white;
-  /* Prevent transparent overlap */
 }
-
-
-
-/* Ensure table container doesn't hide overflow of this disclaimer if possible */
-.table-scroll-wrapper {
-  overflow: visible;
-  /* careful with this, but usually wrapper handles inner scroll */
-}
-
-/* Actually wrapper creates scroll context for TABLE only. disclaimer is ::after the wrapper content? 
-   No, ::after is INSIDE the wrapper. 
-   If wrapper has overflow-x: auto, the disclaimer might scroll too! 
-   
-   Better fix: content: ""; display: table-caption; caption-side: bottom; 
-   If that failed before, let's try a different trick: 
-   Display table on the wrapper? No.
-   
-   Let's stick to ::after but realize it might scroll on small screens. 
-   On desktop it should be fine. 
-   Crucial: text-align: right needs width.
-*/
 
 /* Banner image: same width as text, clean edges, NO GAP */
 .article-content>img:first-child,
