@@ -20,6 +20,12 @@ export default function TableResponsive() {
             table.parentNode?.insertBefore(wrapper, table);
             wrapper.appendChild(table);
 
+            // Also move .table-disclaimer (sibling after table) into wrapper
+            const nextEl = wrapper.nextElementSibling;
+            if (nextEl?.classList.contains('table-disclaimer')) {
+                wrapper.appendChild(nextEl);
+            }
+
             // Hide hint after user scrolls the table
             table.addEventListener('scroll', function handler() {
                 wrapper.classList.add('scrolled');

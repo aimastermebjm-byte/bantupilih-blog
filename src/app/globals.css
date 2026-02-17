@@ -549,14 +549,17 @@ h6 {
 }
 
 /* Style the injected disclaimer div below table */
-.article-content .table-disclaimer {
+.article-content .table-disclaimer,
+.table-scroll-wrapper .table-disclaimer {
   text-align: right !important;
-  font-size: 11px !important;
+  font-size: 13px !important;
   color: #6b7280 !important;
   font-style: italic;
   margin-top: 8px !important;
   margin-bottom: 24px !important;
   padding-right: 4px;
+  display: block !important;
+  width: 100% !important;
 }
 
 /* Banner image: same width as text, clean edges, NO GAP */
