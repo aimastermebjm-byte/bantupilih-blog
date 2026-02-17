@@ -87,7 +87,7 @@ export default async function HomePage() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
 
           {/* LEFT COLUMN: THE LATEST (25%) */}
-          <div className="lg:col-span-1 border-r border-gray-100 pr-0 lg:pr-8">
+          <div className="order-2 lg:order-none lg:col-span-1 border-r border-gray-100 pr-0 lg:pr-8">
             <div className="sticky top-24">
               <h3 className="text-xl font-bold font-serif mb-6 border-b-2 border-black pb-2">Terbaru</h3>
               <div className="flex flex-col gap-6">
@@ -109,7 +109,7 @@ export default async function HomePage() {
           </div>
 
           {/* CENTER COOLUMN: FEATURED / POPULAR CATEGORIES (50%) */}
-          <div className="lg:col-span-2">
+          <div className="order-1 lg:order-none lg:col-span-2">
             {/* Big Hero Featured (If valid) */}
             {featuredArticle && (
               <div className="mb-12">
@@ -198,7 +198,7 @@ export default async function HomePage() {
           </div>
 
           {/* RIGHT COLUMN: POPULAR / DEALS (25%) */}
-          <aside className="lg:col-span-1 border-l border-gray-100 pl-0 lg:pl-8">
+          <aside className="order-3 lg:order-none lg:col-span-1 border-l border-gray-100 pl-0 lg:pl-8">
             <div className="sticky top-24 space-y-10">
               {/* Popular Widget */}
               <div>
