@@ -86,9 +86,31 @@ export default async function HomePage() {
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
 
-          {/* LEFT COLUMN: THE LATEST (25%) */}
-          <div className="order-2 lg:order-none lg:col-span-1 border-r border-gray-100 pr-0 lg:pr-8">
-            <div className="sticky top-24">
+          {/* 1. FEATURED ARTICLE (Mobile: 1st, Desktop: center-top) */}
+          <div className="lg:col-start-2 lg:col-span-2 lg:row-start-1">
+            {featuredArticle && (
+              <div className="mb-12">
+                <Link href={`/artikel/${featuredArticle.slug || featuredArticle.id}`} className="group block mb-4">
+                  <div className="aspect-[16/9] overflow-hidden mb-4">
+                    {featuredArticle.bannerUrl && (
+                      <img src={featuredArticle.bannerUrl} alt={featuredArticle.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    )}
+                  </div>
+                  <span className="text-orange-600 font-bold text-xs uppercase tracking-wider mb-2 block">{featuredArticle.category}</span>
+                  <h2 className="text-3xl md:text-4xl font-bold font-serif text-gray-900 leading-tight mb-3 group-hover:text-orange-600 transition-colors">
+                    {featuredArticle.title}
+                  </h2>
+                  <p className="text-gray-600 leading-relaxed">
+                    {featuredArticle.excerpt || "Baca review lengkap dan mendalam kami..."}
+                  </p>
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {/* 2. TERBARU LIST (Mobile: 2nd, Desktop: left sidebar) */}
+          <div className="lg:col-start-1 lg:col-span-1 lg:row-start-1 lg:row-span-3 border-r-0 lg:border-r border-gray-100 pr-0 lg:pr-8">
+            <div className="lg:sticky lg:top-24">
               <h3 className="text-xl font-bold font-serif mb-6 border-b-2 border-black pb-2">Terbaru</h3>
               <div className="flex flex-col gap-6">
                 {recentArticles.slice(0, 5).map((article) => (
@@ -108,103 +130,13 @@ export default async function HomePage() {
             </div>
           </div>
 
-          {/* CENTER COOLUMN: FEATURED / POPULAR CATEGORIES (50%) */}
-          <div className="order-1 lg:order-none lg:col-span-2">
-            {/* Big Hero Featured (If valid) */}
-            {featuredArticle && (
-              <div className="mb-12">
-                <Link href={`/artikel/${featuredArticle.slug || featuredArticle.id}`} className="group block mb-4">
-                  <div className="aspect-[16/9] overflow-hidden mb-4">
-                    {featuredArticle.bannerUrl && (
-                      <img src={featuredArticle.bannerUrl} alt={featuredArticle.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                    )}
-                  </div>
-                  <span className="text-orange-600 font-bold text-xs uppercase tracking-wider mb-2 block">{featuredArticle.category}</span>
-                  <h2 className="text-3xl md:text-4xl font-bold font-serif text-gray-900 leading-tight mb-3 group-hover:text-orange-600 transition-colors">
-                    {featuredArticle.title}
-                  </h2>
-                  <p className="text-gray-600 leading-relaxed">
-                    {featuredArticle.excerpt || "Baca review lengkap dan mendalam kami..."}
-                  </p>
-                </Link>
-              </div>
-            )}
-
-            {/* Category Sections (Stacked) */}
-            <div className="space-y-12 pt-8 border-t border-gray-200">
-
-              {/* 1. ELEKTRONIK SECTION */}
-              <section>
-                <div className="flex items-center justify-between mb-6 border-b-4 border-black pb-2">
-                  <h3 className="text-2xl font-black font-serif tracking-tight">Elektronik</h3>
-                  <Link href="/kategori/elektronik" className="text-sm font-bold text-gray-500 hover:text-orange-600">Lihat Semua →</Link>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {articles.filter(a => a.category?.toLowerCase() === 'elektronik').slice(0, 4).map((article) => (
-                    <Link key={article.id} href={`/artikel/${article.slug || article.id}`} className="group">
-                      <div className="aspect-[3/2] overflow-hidden mb-3">
-                        {article.bannerUrl && <img src={article.bannerUrl} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />}
-                      </div>
-                      <h4 className="font-bold text-lg leading-snug text-gray-900 group-hover:text-orange-600 font-serif">
-                        {article.title}
-                      </h4>
-                      <p className="text-xs text-gray-400 mt-1 line-clamp-2">{article.excerpt}</p>
-                    </Link>
-                  ))}
-                </div>
-              </section>
-
-              {/* 2. FASHION / LIFESTYLE SECTION */}
-              <section>
-                <div className="flex items-center justify-between mb-6 border-b-4 border-black pb-2">
-                  <h3 className="text-2xl font-black font-serif tracking-tight">Fashion & Lifestyle</h3>
-                  <Link href="/kategori/fashion" className="text-sm font-bold text-gray-500 hover:text-orange-600">Lihat Semua →</Link>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {articles.filter(a => a.category?.toLowerCase() === 'fashion' || a.category?.toLowerCase() === 'lifestyle').slice(0, 4).map((article) => (
-                    <Link key={article.id} href={`/artikel/${article.slug || article.id}`} className="group">
-                      <div className="aspect-[3/2] overflow-hidden mb-3">
-                        {article.bannerUrl && <img src={article.bannerUrl} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />}
-                      </div>
-                      <h4 className="font-bold text-lg leading-snug text-gray-900 group-hover:text-orange-600 font-serif">
-                        {article.title}
-                      </h4>
-                    </Link>
-                  ))}
-                </div>
-              </section>
-
-              {/* 3. HOME & LIVING SECTION */}
-              <section>
-                <div className="flex items-center justify-between mb-6 border-b-4 border-black pb-2">
-                  <h3 className="text-2xl font-black font-serif tracking-tight">Rumah Tangga</h3>
-                  <Link href="/kategori/rumah-tangga" className="text-sm font-bold text-gray-500 hover:text-orange-600">Lihat Semua →</Link>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {articles.filter(a => a.category?.toLowerCase() === 'rumah tangga' || a.category?.toLowerCase() === 'home').slice(0, 4).map((article) => (
-                    <Link key={article.id} href={`/artikel/${article.slug || article.id}`} className="group">
-                      <div className="aspect-[3/2] overflow-hidden mb-3">
-                        {article.bannerUrl && <img src={article.bannerUrl} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />}
-                      </div>
-                      <h4 className="font-bold text-lg leading-snug text-gray-900 group-hover:text-orange-600 font-serif">
-                        {article.title}
-                      </h4>
-                    </Link>
-                  ))}
-                </div>
-              </section>
-
-            </div>
-          </div>
-
-          {/* RIGHT COLUMN: POPULAR / DEALS (25%) */}
-          <aside className="order-3 lg:order-none lg:col-span-1 border-l border-gray-100 pl-0 lg:pl-8">
-            <div className="sticky top-24 space-y-10">
+          {/* 3. POPULER + NEWSLETTER (Mobile: 3rd, Desktop: right sidebar) */}
+          <aside className="lg:col-start-4 lg:col-span-1 lg:row-start-1 lg:row-span-3 border-l-0 lg:border-l border-gray-100 pl-0 lg:pl-8">
+            <div className="lg:sticky lg:top-24 space-y-10">
               {/* Popular Widget */}
               <div>
                 <h4 className="text-lg font-bold font-serif mb-4 border-b border-gray-200 pb-2">Populer</h4>
                 <ul className="space-y-4">
-                  {/* Placeholder for popular items (using recent for now to fill) */}
                   {articles.slice(0, 4).map((article, i) => (
                     <li key={article.id} className="group">
                       <Link href={`/artikel/${article.slug || article.id}`} className="flex gap-4 items-start">
@@ -228,6 +160,74 @@ export default async function HomePage() {
               </div>
             </div>
           </aside>
+
+          {/* 4. CATEGORY SECTIONS (Mobile: 4th, Desktop: center-bottom) */}
+          <div className="lg:col-start-2 lg:col-span-2 lg:row-start-2">
+            <div className="space-y-12 pt-8 border-t border-gray-200">
+
+              {/* ELEKTRONIK */}
+              <section>
+                <div className="flex items-center justify-between mb-6 border-b-4 border-black pb-2">
+                  <h3 className="text-2xl font-black font-serif tracking-tight">Elektronik</h3>
+                  <Link href="/kategori/elektronik" className="text-sm font-bold text-gray-500 hover:text-orange-600">Lihat Semua →</Link>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {articles.filter(a => a.category?.toLowerCase() === 'elektronik').slice(0, 4).map((article) => (
+                    <Link key={article.id} href={`/artikel/${article.slug || article.id}`} className="group">
+                      <div className="aspect-[3/2] overflow-hidden mb-3">
+                        {article.bannerUrl && <img src={article.bannerUrl} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />}
+                      </div>
+                      <h4 className="font-bold text-lg leading-snug text-gray-900 group-hover:text-orange-600 font-serif">
+                        {article.title}
+                      </h4>
+                      <p className="text-xs text-gray-400 mt-1 line-clamp-2">{article.excerpt}</p>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+
+              {/* FASHION / LIFESTYLE */}
+              <section>
+                <div className="flex items-center justify-between mb-6 border-b-4 border-black pb-2">
+                  <h3 className="text-2xl font-black font-serif tracking-tight">Fashion & Lifestyle</h3>
+                  <Link href="/kategori/fashion" className="text-sm font-bold text-gray-500 hover:text-orange-600">Lihat Semua →</Link>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {articles.filter(a => a.category?.toLowerCase() === 'fashion' || a.category?.toLowerCase() === 'lifestyle').slice(0, 4).map((article) => (
+                    <Link key={article.id} href={`/artikel/${article.slug || article.id}`} className="group">
+                      <div className="aspect-[3/2] overflow-hidden mb-3">
+                        {article.bannerUrl && <img src={article.bannerUrl} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />}
+                      </div>
+                      <h4 className="font-bold text-lg leading-snug text-gray-900 group-hover:text-orange-600 font-serif">
+                        {article.title}
+                      </h4>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+
+              {/* RUMAH TANGGA */}
+              <section>
+                <div className="flex items-center justify-between mb-6 border-b-4 border-black pb-2">
+                  <h3 className="text-2xl font-black font-serif tracking-tight">Rumah Tangga</h3>
+                  <Link href="/kategori/rumah-tangga" className="text-sm font-bold text-gray-500 hover:text-orange-600">Lihat Semua →</Link>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {articles.filter(a => a.category?.toLowerCase() === 'rumah tangga' || a.category?.toLowerCase() === 'home').slice(0, 4).map((article) => (
+                    <Link key={article.id} href={`/artikel/${article.slug || article.id}`} className="group">
+                      <div className="aspect-[3/2] overflow-hidden mb-3">
+                        {article.bannerUrl && <img src={article.bannerUrl} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />}
+                      </div>
+                      <h4 className="font-bold text-lg leading-snug text-gray-900 group-hover:text-orange-600 font-serif">
+                        {article.title}
+                      </h4>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+
+            </div>
+          </div>
 
         </div>
       </div>
