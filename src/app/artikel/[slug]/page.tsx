@@ -193,19 +193,17 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
             />
 
-            {/* Scoped style to override prose/article-content for disclaimer */}
+            {/* Scoped style for table disclaimer */}
             <style dangerouslySetInnerHTML={{
                 __html: `
                 [data-disclaimer="table"] {
-                    text-align: right !important;
+                    text-align: left !important;
                     font-size: 13px !important;
                     color: #6b7280 !important;
                     font-style: italic !important;
                     margin-top: 8px !important;
                     margin-bottom: 24px !important;
-                    padding-right: 4px !important;
                     display: block !important;
-                    width: 100% !important;
                     line-height: 1.4 !important;
                 }
             `}} />
