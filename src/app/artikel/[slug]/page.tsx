@@ -180,8 +180,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         }),
     };
 
-    // Inject Table Disclaimer as a <p> tag AFTER each table (Robust Fix)
-    const disclaimerHTML = `<p style="text-align: right; font-size: 11px; color: #6b7280; font-style: italic; margin-top: 8px; margin-bottom: 24px; padding-right: 4px;">*Harga diatas adalah harga saat artikel dibuat dan dapat berubah sewaktu-waktu. Cek harga terbaru di Shopee.</p>`;
+    // Inject Table Disclaimer as a <div> AFTER each table (using class to override prose)
+    const disclaimerHTML = `<div class="table-disclaimer">*Harga diatas adalah harga saat artikel dibuat dan dapat berubah sewaktu-waktu. Cek harga terbaru di Shopee.</div>`;
     const finalHtmlContent = htmlContent.replace(/<\/table>/g, `</table>${disclaimerHTML}`);
 
 
