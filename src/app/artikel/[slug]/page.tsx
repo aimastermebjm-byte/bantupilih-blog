@@ -180,8 +180,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         }),
     };
 
-    // Inject Table Disclaimer as a <div> AFTER each table (using class to override prose)
-    const disclaimerHTML = `<div class="table-disclaimer">*Harga diatas adalah harga saat artikel dibuat dan dapat berubah sewaktu-waktu. Cek harga terbaru di Shopee.</div>`;
+    // Inject Table Disclaimer as a <div> AFTER each table
+    const disclaimerHTML = `<div data-disclaimer="table">*Harga diatas adalah harga saat artikel dibuat dan dapat berubah sewaktu-waktu. Cek harga terbaru di Shopee.</div>`;
     const finalHtmlContent = htmlContent.replace(/<\/table>/g, `</table>${disclaimerHTML}`);
 
 
@@ -192,6 +192,23 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
             />
+
+            {/* Scoped style to override prose/article-content for disclaimer */}
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                [data-disclaimer="table"] {
+                    text-align: right !important;
+                    font-size: 13px !important;
+                    color: #6b7280 !important;
+                    font-style: italic !important;
+                    margin-top: 8px !important;
+                    margin-bottom: 24px !important;
+                    padding-right: 4px !important;
+                    display: block !important;
+                    width: 100% !important;
+                    line-height: 1.4 !important;
+                }
+            `}} />
 
             {/* Header */}
             <header className="hero-gradient text-white py-4">
