@@ -299,12 +299,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                         dangerouslySetInnerHTML={{ __html: finalHtmlContent }}
                     />
 
-                    {/* Global Affiliate Disclaimer */}
-                    <div className="mt-8 pt-6 border-t border-gray-100 text-sm text-gray-500 italic bg-gray-50 p-4 rounded-lg text-center">
-                        <p>
-                            "Kami mereview produk secara independen. Ketika Anda membeli melalui tautan kami, kami mungkin mendapatkan komisi tanpa biaya tambahan bagi Anda."
-                        </p>
-                    </div>
+
 
                     {/* Inject data-label for mobile table card layout */}
                     <TableResponsive />
