@@ -271,8 +271,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                                 />
                                 {/* Author Section (Below Image) */}
                                 <div className="flex items-center gap-3 mt-2 mb-1 border-b border-gray-100 pb-2">
-                                    <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden">
-                                        <span className="text-lg">👨‍💻</span>
+                                    <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center overflow-hidden">
+                                        <span className="text-sm font-bold text-white">BP</span>
                                     </div>
                                     <div className="text-sm">
                                         <p className="text-gray-900 font-medium">By <span className="font-bold">Tim Riset BantuPilih</span></p>
@@ -284,8 +284,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                         ) : (
                             /* Fallback Author Position (if no bannerUrl found) */
                             <div className="flex items-center gap-3 mb-8 border-b border-gray-100 pb-6">
-                                <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden">
-                                    <span className="text-lg">👨‍💻</span>
+                                <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center overflow-hidden">
+                                    <span className="text-sm font-bold text-white">BP</span>
                                 </div>
                                 <div className="text-sm">
                                     <p className="text-gray-900 font-medium">By <span className="font-bold">Tim Riset BantuPilih</span></p>
