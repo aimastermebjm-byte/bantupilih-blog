@@ -276,7 +276,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                                     </div>
                                     <div className="text-sm">
                                         <p className="text-gray-900 font-medium">By <span className="font-bold">Tim Riset BantuPilih</span></p>
-                                        <p className="text-xs text-gray-500">Updated: {new Date().getFullYear()}</p>
+                                        <p className="text-xs text-gray-500">Berdasarkan analisis spesifikasi & ulasan pengguna terverifikasi</p>
+                                        <p className="text-xs text-gray-400">Updated: {new Date().getFullYear()}</p>
                                     </div>
                                 </div>
                             </div>
@@ -288,6 +289,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                                 </div>
                                 <div className="text-sm">
                                     <p className="text-gray-900 font-medium">By <span className="font-bold">Tim Riset BantuPilih</span></p>
+                                    <p className="text-xs text-gray-500">Berdasarkan analisis spesifikasi & ulasan pengguna terverifikasi</p>
                                 </div>
                             </div>
                         )}
